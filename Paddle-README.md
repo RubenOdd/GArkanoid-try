@@ -1,0 +1,1 @@
+I chose to use CharacterBody2D to be able to move it as per player's wants and inputs.
