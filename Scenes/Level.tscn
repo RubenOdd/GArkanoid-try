@@ -1,11 +1,69 @@
-[gd_scene load_steps=2 format=3 uid="uid://bq6sa78g74vmn"]
+[gd_scene load_steps=7 format=3 uid="uid://bq6sa78g74vmn"]
 
 [ext_resource type="PackedScene" uid="uid://bu2q68kl1hs7j" path="res://Scenes/Paddle.tscn" id="1_0ba56"]
+[ext_resource type="PackedScene" uid="uid://8qnpcynr02ew" path="res://Scenes/Ball.tscn" id="2_vsvp5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vsvp5"]
+size = Vector2(667, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8rbpu"]
+size = Vector2(704.5, 15)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fuudy"]
+size = Vector2(422, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xylue"]
+size = Vector2(419, 20)
 
 [node name="Level" type="Node2D"]
 
-[node name="Paddle" parent="." instance=ExtResource("1_0ba56")]
-position = Vector2(581, 423)
+[node name="Paddle" parent="." node_paths=PackedStringArray("_ball") instance=ExtResource("1_0ba56")]
+position = Vector2(329, 325)
+_ball = NodePath("../TheBall")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(576, 324)
+position = Vector2(320, 180)
+
+[node name="TheBall" parent="." instance=ExtResource("2_vsvp5")]
+position = Vector2(329, 301)
+
+[node name="Borders" type="Node" parent="."]
+
+[node name="BotBorder" type="StaticBody2D" parent="Borders"]
+position = Vector2(330, 370)
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/BotBorder"]
+position = Vector2(-6.5, 0)
+shape = SubResource("RectangleShape2D_vsvp5")
+
+[node name="TopBorder" type="StaticBody2D" parent="Borders"]
+position = Vector2(585, -10)
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/TopBorder"]
+position = Vector2(-280.25, 2.49995)
+rotation = -3.14159
+shape = SubResource("RectangleShape2D_8rbpu")
+
+[node name="RightBorder" type="StaticBody2D" parent="Borders"]
+position = Vector2(651, 296)
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/RightBorder"]
+position = Vector2(0, -127)
+rotation = -1.5708
+shape = SubResource("RectangleShape2D_fuudy")
+
+[node name="LeftBorder" type="StaticBody2D" parent="Borders"]
+position = Vector2(-10, 323)
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/LeftBorder"]
+position = Vector2(5.72205e-06, -137.5)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_xylue")

@@ -1,3 +1,4 @@
 {
-    "dotnet.defaultSolution": "OOP-Console.sln"
+    "dotnet.defaultSolution": "OOP-Console.sln",
+    "godotTools.editorPath.godot4": "d:\\dif_softwares\\Godot_v4.4.1-stable_mono_win64\\Godot_v4.4.1-stable_mono_win64_console.exe"
 }
