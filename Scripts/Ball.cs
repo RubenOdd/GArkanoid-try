@@ -28,7 +28,8 @@ public partial class Ball : CharacterBody2D
 
     public override void _PhysicsProcess(double delta)
     {
-        // If the ball is not launched, exit early
+        // If the ball is not launched and there is a paddle, stay with the paddle
+        // Otherwise, exit early
         if (!IsLaunched)
         {
             if (_paddle == null) return;
@@ -40,9 +41,11 @@ public partial class Ball : CharacterBody2D
 
         var collisionInfo = MoveAndCollide(Velocity * (float)delta);
 
+        // The bouncing mechanic
         if (collisionInfo != null)
         {
-            Velocity = Velocity.Bounce(collisionInfo.GetNormal());
+            Direction = Direction.Bounce(collisionInfo.GetNormal()).Normalized();
+            Velocity = Direction * Speed;
         }
     }
 

@@ -1,19 +1,19 @@
-[gd_scene load_steps=7 format=3 uid="uid://bq6sa78g74vmn"]
+[gd_scene load_steps=9 format=3 uid="uid://bq6sa78g74vmn"]
 
 [ext_resource type="PackedScene" uid="uid://bu2q68kl1hs7j" path="res://Scenes/Paddle.tscn" id="1_0ba56"]
 [ext_resource type="PackedScene" uid="uid://8qnpcynr02ew" path="res://Scenes/Ball.tscn" id="2_vsvp5"]
+[ext_resource type="Texture2D" uid="uid://d1u3xb1cehlii" path="res://Sprites/32/horizontal.png" id="3_fuudy"]
+[ext_resource type="Texture2D" uid="uid://cx0d6t17cbscr" path="res://Sprites/32/vertical.png" id="4_tj5wv"]
+[ext_resource type="Texture2D" uid="uid://c7w1dm10ap8d0" path="res://Sprites/32/corner.png" id="4_xylue"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vsvp5"]
-size = Vector2(667, 20)
+size = Vector2(605, 20)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8rbpu"]
-size = Vector2(704.5, 15)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ienac"]
+size = Vector2(20, 22)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_fuudy"]
-size = Vector2(422, 20)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xylue"]
-size = Vector2(419, 20)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5rrr5"]
+size = Vector2(25, 20)
 
 [node name="Level" type="Node2D"]
 
@@ -30,40 +30,79 @@ position = Vector2(329, 301)
 [node name="Borders" type="Node" parent="."]
 
 [node name="BotBorder" type="StaticBody2D" parent="Borders"]
-position = Vector2(330, 370)
+position = Vector2(325, 348)
 collision_layer = 4
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/BotBorder"]
-position = Vector2(-6.5, 0)
+position = Vector2(-4.5, 1)
 shape = SubResource("RectangleShape2D_vsvp5")
 
+[node name="Sprite2D" type="Sprite2D" parent="Borders/BotBorder/CollisionShape2D"]
+position = Vector2(-4.24999, 0.75001)
+scale = Vector2(20.1719, 0.671874)
+texture = ExtResource("3_fuudy")
+
 [node name="TopBorder" type="StaticBody2D" parent="Borders"]
-position = Vector2(585, -10)
+position = Vector2(322, 10)
 collision_layer = 4
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/TopBorder"]
-position = Vector2(-280.25, 2.49995)
-rotation = -3.14159
-shape = SubResource("RectangleShape2D_8rbpu")
+position = Vector2(0, 1)
+scale = Vector2(32.005, 1)
+shape = SubResource("RectangleShape2D_ienac")
+
+[node name="Sprite2D" type="Sprite2D" parent="Borders/TopBorder/CollisionShape2D"]
+position = Vector2(0, 0.5)
+scale = Vector2(0.609375, 0.65625)
+texture = ExtResource("3_fuudy")
 
 [node name="RightBorder" type="StaticBody2D" parent="Borders"]
-position = Vector2(651, 296)
+position = Vector2(631, 169)
 collision_layer = 4
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/RightBorder"]
-position = Vector2(0, -127)
-rotation = -1.5708
-shape = SubResource("RectangleShape2D_fuudy")
+scale = Vector2(1, 19.7)
+shape = SubResource("RectangleShape2D_5rrr5")
+
+[node name="Sprite2D" type="Sprite2D" parent="Borders/RightBorder/CollisionShape2D"]
+position = Vector2(-3, -0.188426)
+scale = Vector2(0.75, 0.608223)
+texture = ExtResource("4_tj5wv")
 
 [node name="LeftBorder" type="StaticBody2D" parent="Borders"]
-position = Vector2(-10, 323)
+position = Vector2(6, 186)
 collision_layer = 4
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/LeftBorder"]
-position = Vector2(5.72205e-06, -137.5)
-rotation = 1.5708
-shape = SubResource("RectangleShape2D_xylue")
+position = Vector2(2.5, 0)
+scale = Vector2(1, 19.7)
+shape = SubResource("RectangleShape2D_5rrr5")
+
+[node name="Sprite2D" type="Sprite2D" parent="Borders/LeftBorder/CollisionShape2D"]
+position = Vector2(3.5, 0.264569)
+scale = Vector2(0.75, 0.603464)
+texture = ExtResource("4_tj5wv")
+
+[node name="BotLeft" type="Sprite2D" parent="Borders"]
+position = Vector2(11.5, 349)
+scale = Vector2(0.71875, 0.6875)
+texture = ExtResource("4_xylue")
+
+[node name="BotRight" type="Sprite2D" parent="Borders"]
+position = Vector2(628, 350)
+scale = Vector2(0.71875, 0.6875)
+texture = ExtResource("4_xylue")
+
+[node name="BotRight2" type="Sprite2D" parent="Borders"]
+position = Vector2(628, 11)
+scale = Vector2(0.71875, 0.6875)
+texture = ExtResource("4_xylue")
+
+[node name="BotRight3" type="Sprite2D" parent="Borders"]
+position = Vector2(12, 10)
+scale = Vector2(0.71875, 0.6875)
+texture = ExtResource("4_xylue")

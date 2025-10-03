@@ -11,7 +11,7 @@ height = 57.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5eqp2"]
 shader = ExtResource("1_5eqp2")
-shader_parameter/scale = Vector2(1.385, 0.525)
+shader_parameter/scale = Vector2(0.89, 0.525)
 shader_parameter/right = 18
 shader_parameter/top = 0
 shader_parameter/left = 18
@@ -26,7 +26,7 @@ script = ExtResource("1_ncdwn")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, -1)
 rotation = 1.5708
-scale = Vector2(0.525, 1.385)
+scale = Vector2(0.525, 0.89)
 shape = SubResource("CapsuleShape2D_8wypp")
 
 [node name="Sprite2D" type="Sprite2D" parent="CollisionShape2D"]

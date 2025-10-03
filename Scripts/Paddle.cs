@@ -1,9 +1,7 @@
 // (c) 2025 Sardorbek Mukhudinov
 // License: 3-clause BSD license
 
-using GA.GArkanoid;
 using Godot;
-using System;
 
 namespace GA.GArkanoid;
 
@@ -39,7 +37,8 @@ public partial class Paddle : CharacterBody2D
             _mouseInput = mouseMotionEvent.Relative.X;
         }
 
-        if (_ball != null && @event.IsActionPressed(Config.LaunchAction))
+        // If we have a ball, let it be launched by player
+        if (_ball != null && !_ball.IsLaunched && @event.IsActionPressed(Config.LaunchAction))
         {
             _ball.Launch(Config.BallSpeed, Config.BallDirection);
         }

@@ -1,0 +1,54 @@
+[gd_scene load_steps=6 format=3 uid="uid://dght5bvsl0ird"]
+
+[ext_resource type="Texture2D" uid="uid://c7w1dm10ap8d0" path="res://Sprites/32/corner.png" id="1_6w0yp"]
+[ext_resource type="Texture2D" uid="uid://cx0d6t17cbscr" path="res://Sprites/32/vertical.png" id="2_s2gbh"]
+[ext_resource type="Texture2D" uid="uid://d1u3xb1cehlii" path="res://Sprites/32/horizontal.png" id="3_5vi4e"]
+[ext_resource type="Texture2D" uid="uid://ccsco28w5mfdx" path="res://Sprites/32/ball.png" id="4_s2gbh"]
+[ext_resource type="Script" uid="uid://vg6l8fvq6t26" path="res://Scripts/CustomPhysics/CustomBall.cs" id="5_5vi4e"]
+
+[node name="NoPhysics" type="Node2D"]
+
+[node name="Walls" type="Node2D" parent="."]
+
+[node name="TopLeft" type="Sprite2D" parent="Walls"]
+position = Vector2(16, 16)
+texture = ExtResource("1_6w0yp")
+
+[node name="TopRight" type="Sprite2D" parent="Walls"]
+position = Vector2(624, 16)
+texture = ExtResource("1_6w0yp")
+
+[node name="BotRight" type="Sprite2D" parent="Walls"]
+position = Vector2(624, 344)
+texture = ExtResource("1_6w0yp")
+
+[node name="BotLeft" type="Sprite2D" parent="Walls"]
+position = Vector2(16, 344)
+texture = ExtResource("1_6w0yp")
+
+[node name="Left" type="Sprite2D" parent="Walls"]
+position = Vector2(16, 180)
+scale = Vector2(1, 9.25)
+texture = ExtResource("2_s2gbh")
+
+[node name="Right" type="Sprite2D" parent="Walls"]
+position = Vector2(624, 180)
+scale = Vector2(1, 9.25)
+texture = ExtResource("2_s2gbh")
+
+[node name="Top" type="Sprite2D" parent="Walls"]
+position = Vector2(320, 16)
+scale = Vector2(18, 1)
+texture = ExtResource("3_5vi4e")
+
+[node name="Bot" type="Sprite2D" parent="Walls"]
+position = Vector2(320, 344)
+scale = Vector2(18, 1)
+texture = ExtResource("3_5vi4e")
+
+[node name="Sprite2D" type="Sprite2D" parent="." node_paths=PackedStringArray("_wall")]
+position = Vector2(314, 170)
+texture = ExtResource("4_s2gbh")
+script = ExtResource("5_5vi4e")
+_direction = Vector2(1, -1)
+_wall = [NodePath("../Walls/Left"), NodePath("../Walls/Right"), NodePath("../Walls/Top"), NodePath("../Walls/Bot")]
