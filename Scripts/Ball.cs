@@ -1,6 +1,7 @@
 // (c) 2025 Sardorbek Mukhudinov
 // License: 3-clause BSD license
 
+using GA.GArkanoid.Systems;
 using Godot;
 using System;
 
@@ -62,4 +63,9 @@ public partial class Ball : CharacterBody2D
         Velocity = Speed * Direction;
     }
 
+    public void ResetBall()
+    {
+        GlobalPosition = _paddle.GlobalPosition + _offset;
+        GameManager.Instance.DecreaseLives();
+    }
 }

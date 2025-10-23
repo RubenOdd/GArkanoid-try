@@ -15,4 +15,10 @@ public static class Config
     public const float BallSpeed = 250.0f;
     public static Vector2 BallDirection = new Vector2(1, -1).Normalized();
     #endregion
+
+    #region Player data
+    public static int MaxLives = 100;
+    public static int InitialLives = 3;
+    public static int InitialScore = 0;
+    #endregion Player data
 }

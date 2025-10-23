@@ -4,7 +4,7 @@
 using System.Text;
 using Godot;
 
-namespace GA.Garkanoid;
+namespace GA.Common;
 
 /// <summary>
 /// Store information about collision between two 2D objects.
