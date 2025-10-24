@@ -1,11 +1,12 @@
 [gd_scene load_steps=12 format=3 uid="uid://bq6sa78g74vmn"]
 
 [ext_resource type="PackedScene" uid="uid://bu2q68kl1hs7j" path="res://Scenes/Paddle.tscn" id="1_0ba56"]
+[ext_resource type="Script" uid="uid://c6wi5lfe6vej4" path="res://Scripts/LevelManager.cs" id="1_5rrr5"]
 [ext_resource type="PackedScene" uid="uid://8qnpcynr02ew" path="res://Scenes/Ball.tscn" id="2_vsvp5"]
 [ext_resource type="Texture2D" uid="uid://d1u3xb1cehlii" path="res://Sprites/32/horizontal.png" id="3_fuudy"]
+[ext_resource type="Script" uid="uid://debvecegialmn" path="res://Scripts/Wall.cs" id="4_or7tv"]
 [ext_resource type="Texture2D" uid="uid://cx0d6t17cbscr" path="res://Sprites/32/vertical.png" id="4_tj5wv"]
 [ext_resource type="Texture2D" uid="uid://c7w1dm10ap8d0" path="res://Sprites/32/corner.png" id="4_xylue"]
-[ext_resource type="Script" uid="uid://fiipm7owapkm" path="res://Scripts/DeathZone.cs" id="6_ienac"]
 [ext_resource type="PackedScene" uid="uid://borcb7rjhnx7h" path="res://Scenes/Block.tscn" id="6_tj5wv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vsvp5"]
@@ -17,16 +18,16 @@ size = Vector2(20, 22)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5rrr5"]
 size = Vector2(25, 20)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_tj5wv"]
-
-[node name="Level" type="Node2D"]
-
-[node name="Paddle" parent="." node_paths=PackedStringArray("_ball") instance=ExtResource("1_0ba56")]
-position = Vector2(329, 325)
-_ball = NodePath("../TheBall")
+[node name="Level" type="Node2D" node_paths=PackedStringArray("CurrentBall", "CurrentPaddle")]
+script = ExtResource("1_5rrr5")
+CurrentBall = NodePath("TheBall")
+CurrentPaddle = NodePath("Paddle")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(320, 180)
+
+[node name="Paddle" parent="." instance=ExtResource("1_0ba56")]
+position = Vector2(329, 325)
 
 [node name="TheBall" parent="." instance=ExtResource("2_vsvp5")]
 position = Vector2(329, 301)
@@ -37,6 +38,8 @@ position = Vector2(329, 301)
 position = Vector2(325, 348)
 collision_layer = 4
 collision_mask = 0
+script = ExtResource("4_or7tv")
+IsHazard = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/BotBorder"]
 position = Vector2(-4.5, 1)
@@ -51,6 +54,7 @@ texture = ExtResource("3_fuudy")
 position = Vector2(322, 10)
 collision_layer = 4
 collision_mask = 0
+script = ExtResource("4_or7tv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/TopBorder"]
 position = Vector2(0, 1)
@@ -66,6 +70,7 @@ texture = ExtResource("3_fuudy")
 position = Vector2(631, 169)
 collision_layer = 4
 collision_mask = 0
+script = ExtResource("4_or7tv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/RightBorder"]
 scale = Vector2(1, 19.7)
@@ -80,6 +85,7 @@ texture = ExtResource("4_tj5wv")
 position = Vector2(6, 186)
 collision_layer = 4
 collision_mask = 0
+script = ExtResource("4_or7tv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/LeftBorder"]
 position = Vector2(2.5, 0)
@@ -111,27 +117,109 @@ position = Vector2(12, 10)
 scale = Vector2(0.71875, 0.6875)
 texture = ExtResource("4_xylue")
 
-[node name="DeathZone" type="Area2D" parent="Borders"]
-position = Vector2(-10, 0)
-collision_layer = 4
-script = ExtResource("6_ienac")
+[node name="LevelLayout" type="Node2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/DeathZone"]
-position = Vector2(329, 339)
-scale = Vector2(31.5, 1)
-shape = SubResource("RectangleShape2D_tj5wv")
+[node name="Block" parent="LevelLayout" instance=ExtResource("6_tj5wv")]
+position = Vector2(137, 63)
+_blockColor = Color(0.909804, 0.109804, 0.164706, 1)
+_score = 150
 
-[node name="Blocks" type="Node2D" parent="."]
+[node name="Block2" parent="LevelLayout" instance=ExtResource("6_tj5wv")]
+position = Vector2(204, 63)
+_blockColor = Color(0.909804, 0.109804, 0.164706, 1)
+_score = 150
 
-[node name="Block" parent="Blocks" instance=ExtResource("6_tj5wv")]
-position = Vector2(319, 131)
+[node name="Block3" parent="LevelLayout" instance=ExtResource("6_tj5wv")]
+position = Vector2(271, 63)
+_blockColor = Color(0.909804, 0.109804, 0.164706, 1)
+_score = 150
 
-[node name="Block2" parent="Blocks" instance=ExtResource("6_tj5wv")]
-position = Vector2(221, 130)
-_blockColor = Color(1, 0, 0.109804, 1)
+[node name="Block4" parent="LevelLayout" instance=ExtResource("6_tj5wv")]
+position = Vector2(338, 63)
+_blockColor = Color(0.909804, 0.109804, 0.164706, 1)
+_score = 150
 
-[node name="Block3" parent="Blocks" instance=ExtResource("6_tj5wv")]
-position = Vector2(418, 129)
-_blockColor = Color(0.0392157, 1, 0.054902, 1)
+[node name="Block5" parent="LevelLayout" instance=ExtResource("6_tj5wv")]
+position = Vector2(405, 63)
+_blockColor = Color(0.909804, 0.109804, 0.164706, 1)
+_score = 150
 
-[connection signal="body_entered" from="Borders/DeathZone" to="Borders/DeathZone" method="OnZoneEntered"]
+[node name="Block6" parent="LevelLayout" instance=ExtResource("6_tj5wv")]
+position = Vector2(471, 63)
+_blockColor = Color(0.909804, 0.109804, 0.164706, 1)
+_score = 150
+
+[node name="Block7" parent="LevelLayout" instance=ExtResource("6_tj5wv")]
+position = Vector2(538, 63)
+_blockColor = Color(0.909804, 0.109804, 0.164706, 1)
+_score = 150
+
+[node name="Block8" parent="LevelLayout" instance=ExtResource("6_tj5wv")]
+position = Vector2(104, 100)
+_blockColor = Color(1, 0.843137, 0.0823529, 1)
+_score = 100
+
+[node name="Block9" parent="LevelLayout" instance=ExtResource("6_tj5wv")]
+position = Vector2(171, 100)
+_blockColor = Color(1, 0.843137, 0.0823529, 1)
+_score = 100
+
+[node name="Block10" parent="LevelLayout" instance=ExtResource("6_tj5wv")]
+position = Vector2(238, 100)
+_blockColor = Color(1, 0.843137, 0.0823529, 1)
+_score = 100
+
+[node name="Block11" parent="LevelLayout" instance=ExtResource("6_tj5wv")]
+position = Vector2(305, 100)
+_blockColor = Color(1, 0.843137, 0.0823529, 1)
+_score = 100
+
+[node name="Block12" parent="LevelLayout" instance=ExtResource("6_tj5wv")]
+position = Vector2(372, 100)
+_blockColor = Color(1, 0.843137, 0.0823529, 1)
+_score = 100
+
+[node name="Block13" parent="LevelLayout" instance=ExtResource("6_tj5wv")]
+position = Vector2(438, 100)
+_blockColor = Color(1, 0.843137, 0.0823529, 1)
+_score = 100
+
+[node name="Block14" parent="LevelLayout" instance=ExtResource("6_tj5wv")]
+position = Vector2(505, 100)
+_blockColor = Color(1, 0.843137, 0.0823529, 1)
+_score = 100
+
+[node name="Block15" parent="LevelLayout" instance=ExtResource("6_tj5wv")]
+position = Vector2(137, 136)
+_blockColor = Color(0.0980392, 0.737255, 1, 1)
+_score = 50
+
+[node name="Block16" parent="LevelLayout" instance=ExtResource("6_tj5wv")]
+position = Vector2(204, 136)
+_blockColor = Color(0.0980392, 0.737255, 1, 1)
+_score = 50
+
+[node name="Block17" parent="LevelLayout" instance=ExtResource("6_tj5wv")]
+position = Vector2(271, 136)
+_blockColor = Color(0.0980392, 0.737255, 1, 1)
+_score = 50
+
+[node name="Block18" parent="LevelLayout" instance=ExtResource("6_tj5wv")]
+position = Vector2(338, 136)
+_blockColor = Color(0.0980392, 0.737255, 1, 1)
+_score = 50
+
+[node name="Block19" parent="LevelLayout" instance=ExtResource("6_tj5wv")]
+position = Vector2(405, 136)
+_blockColor = Color(0.0980392, 0.737255, 1, 1)
+_score = 50
+
+[node name="Block20" parent="LevelLayout" instance=ExtResource("6_tj5wv")]
+position = Vector2(471, 136)
+_blockColor = Color(0.0980392, 0.737255, 1, 1)
+_score = 50
+
+[node name="Block21" parent="LevelLayout" instance=ExtResource("6_tj5wv")]
+position = Vector2(538, 136)
+_blockColor = Color(0.0980392, 0.737255, 1, 1)
+_score = 50

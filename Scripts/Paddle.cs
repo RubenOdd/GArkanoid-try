@@ -14,9 +14,8 @@ public partial class Paddle : CharacterBody2D
     private Vector2 _screenSize;
     private Vector2 _paddleSize;
 
-    // TODO: Create level manager to control level objects
-    [Export]
-    private Ball _ball = null;
+    public Ball CurrentBall { get { return LevelManager.Active.CurrentBall; }}
+
 
     #region Public Interface
     public override void _Ready()
@@ -38,9 +37,9 @@ public partial class Paddle : CharacterBody2D
         }
 
         // If we have a ball, let it be launched by player
-        if (_ball != null && !_ball.IsLaunched && @event.IsActionPressed(Config.LaunchAction))
+        if (CurrentBall != null && !CurrentBall.IsLaunched && @event.IsActionPressed(Config.LaunchAction))
         {
-            _ball.Launch(Config.BallSpeed, Config.BallDirection);
+            CurrentBall.Launch(Config.BallSpeed, Config.BallDirection);
         }
     }
 

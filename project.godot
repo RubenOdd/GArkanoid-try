@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Arkanoid Look Alike"
-run/main_scene="uid://bq6sa78g74vmn"
+run/main_scene="uid://de05f7wphpldt"
 config/features=PackedStringArray("4.4", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -35,7 +35,8 @@ folder_colors={
 "res://Scenes/": "blue",
 "res://Scripts/": "yellow",
 "res://Shaders/": "pink",
-"res://Sprites/": "red"
+"res://Sprites/": "red",
+"res://UI/": "green"
 }
 
 [input]

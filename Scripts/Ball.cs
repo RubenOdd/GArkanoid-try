@@ -43,12 +43,31 @@ public partial class Ball : CharacterBody2D
         var collisionInfo = MoveAndCollide(Velocity * (float)delta);
 
         // The bouncing mechanic
+        if (Bounce(collisionInfo))
+        {
+            GodotObject collidedObject = collisionInfo.GetCollider();
+            if (collidedObject is Block block)
+            {
+                block.Hit();
+            }
+            else if (collidedObject is Wall wall && wall.IsHazard)
+            {
+                GameManager.Instance.DecreaseLives();
+            }
+        }
+    }
+
+    private bool Bounce(KinematicCollision2D collisionInfo)
+    {
         if (collisionInfo != null)
         {
             Direction = Direction.Bounce(collisionInfo.GetNormal()).Normalized();
             Velocity = Direction * Speed;
         }
+
+        return collisionInfo != null;
     }
+
 
     /// <summary>
     /// Launches the ball in a certain direction.
@@ -65,7 +84,8 @@ public partial class Ball : CharacterBody2D
 
     public void ResetBall()
     {
-        GlobalPosition = _paddle.GlobalPosition + _offset;
-        GameManager.Instance.DecreaseLives();
+        Speed = 0;
+        Direction = Vector2.Zero;
+        Velocity = Vector2.Zero;
     }
 }
