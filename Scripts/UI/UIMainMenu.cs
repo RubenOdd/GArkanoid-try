@@ -31,7 +31,7 @@ public partial class UIMainMenu : Control
 
     private void OnSettings()
     {
-        throw new NotImplementedException();
+        GameManager.Instance.ChangeState(StateType.Settings);
     }
 
 

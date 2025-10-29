@@ -1,3 +1,4 @@
+using GA.GArkanoid.States;
 using GA.GArkanoid.Systems;
 using Godot;
 
@@ -62,6 +63,7 @@ public partial class LevelManager : Node2D
             // TODO: DOn't sctually destroy
             CurrentBall.QueueFree();
             CurrentBall = null;
+            GameManager.Instance.ChangeState(StateType.GameOver);
             GD.Print("GAme Over");
         }
     }

@@ -1,0 +1,56 @@
+[gd_scene load_steps=3 format=3 uid="uid://b1rabswfy34vf"]
+
+[ext_resource type="Theme" uid="uid://cd5n2sj28xhk4" path="res://UI/MainTheme.tres" id="1_mj2lg"]
+[ext_resource type="Script" uid="uid://bx4w6fpwhgspw" path="res://Scripts/UI/UISettings.cs" id="2_v5qja"]
+
+[node name="Settings" type="Control" node_paths=PackedStringArray("_closeButton")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_mj2lg")
+script = ExtResource("2_v5qja")
+_closeButton = NodePath("MarginContainer/Panel/VBoxContainer/CloseButton")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="MarginContainer"]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Title" type="Label" parent="MarginContainer/Panel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 42.0
+grow_horizontal = 2
+text = "Settings"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Panel"]
+custom_minimum_size = Vector2(0, 250)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 2
+
+[node name="CloseButton" type="Button" parent="MarginContainer/Panel/VBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Save & Close"

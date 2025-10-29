@@ -12,7 +12,7 @@ public static class Config
     public static StringName LaunchAction = "LaunchBall";
 
     #region Initial Ball Settings
-    public const float BallSpeed = 250.0f;
+    public const float BallSpeed = 200.0f;
     public static Vector2 BallDirection = new Vector2(1, -1).Normalized();
     #endregion
 

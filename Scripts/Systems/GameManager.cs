@@ -10,7 +10,7 @@ using GodotPlugins.Game;
 /*
 GameManager
 
-- Switch scenes (TODO)
+- Switch scenes
 - Score keeping (DONE)
 - Lives (DONE)
 - Centralized access point to other managers / systems (TODO)
@@ -38,6 +38,8 @@ public partial class GameManager : Singleton<GameManager>
     [
         new GameState(),
         new MainMenuState(),
+        new SettingsState(),
+        new GameOverState(),
         // TODO: Add all the rest
     ];
 
@@ -70,7 +72,7 @@ public partial class GameManager : Singleton<GameManager>
         }
     }
 
-    public int levelIndex
+    public int LevelIndex
     {
         get;
         private set;
@@ -99,6 +101,7 @@ public partial class GameManager : Singleton<GameManager>
     {
         Lives = Config.InitialLives;
         Score = Config.InitialScore;
+        LevelIndex = 1;
         EmitSignal(SignalName.GameReset);
     }
 
@@ -165,7 +168,7 @@ public partial class GameManager : Singleton<GameManager>
             _loadedStates.Pop();
         }
 
-        // Works great in Godot, but is broken in Unity
+        // ? - Works great in Godot, but is broken in Unity
         previousState?.OnExit();
 
         if (ActiveState != nextState)
@@ -183,7 +186,7 @@ public partial class GameManager : Singleton<GameManager>
         return true;
     }
 
-    public bool ActiavetPreviousState()
+    public bool ActivatePreviousState()
     {
         if (_loadedStates.Count < 2)
         {
