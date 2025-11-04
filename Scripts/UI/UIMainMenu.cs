@@ -9,12 +9,9 @@ using System;
 namespace GA.GArkanoid.UI;
 public partial class UIMainMenu : Control
 {
-    [Export]
-    private Button _newGameButton = null;
-    [Export]
-    private Button _settingsButtons = null;
-    [Export]
-    private Button _quitButton = null;
+    [Export] private Button _newGameButton = null;
+    [Export] private Button _settingsButtons = null;
+    [Export] private Button _quitButton = null;
 
     public override void _Ready()
     {

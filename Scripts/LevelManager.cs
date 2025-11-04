@@ -24,6 +24,15 @@ public partial class LevelManager : Node2D
         GameManager.Instance.LivesChanged += OnLivesChanged;
     }
 
+    public override void _Process(double delta)
+    {
+        if (Input.IsActionJustPressed(Config.PauseAction))
+        {
+            GameManager.Instance.ChangeState(StateType.Pause);
+        }
+
+    }
+
     public static string GetLevelcContentPath(int levelIndex)
     {
         return $"{LevelContentPath}/{LevelContentName}{levelIndex}{LevelContentExtension}";

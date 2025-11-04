@@ -1,4 +1,7 @@
-[gd_resource type="Theme" format=3 uid="uid://cd5n2sj28xhk4"]
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://cd5n2sj28xhk4"]
+
+[ext_resource type="FontFile" uid="uid://5k020wxhhsir" path="res://UI/Fonts/BarberChop.otf" id="1_ttu11"]
 
 [resource]
+Control/fonts/font = ExtResource("1_ttu11")
 Label/font_sizes/font_size = 30

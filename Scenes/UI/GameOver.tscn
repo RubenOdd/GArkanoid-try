@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://civvhfnab61wn" path="res://Scripts/UI/UIGameOver.cs" id="1_n002h"]
 
-[node name="GameOver" type="Control" node_paths=PackedStringArray("_closeButton", "_scoreText")]
+[node name="GameOver" type="Control" node_paths=PackedStringArray("_closeButton", "_resetButton", "_scoreText")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,6 +11,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_n002h")
 _closeButton = NodePath("MarginContainer/Panel/VBoxContainer/MenuButton")
+_resetButton = NodePath("MarginContainer/Panel/VBoxContainer/ResetButton")
 _scoreText = NodePath("MarginContainer/Panel/VBoxContainer/ScoreText")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -47,7 +48,15 @@ layout_mode = 2
 text = "SCORE"
 horizontal_alignment = 1
 
+[node name="ResetButton" type="Button" parent="MarginContainer/Panel/VBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "Restart"
+
 [node name="MenuButton" type="Button" parent="MarginContainer/Panel/VBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8

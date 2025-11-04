@@ -40,6 +40,7 @@ public partial class GameManager : Singleton<GameManager>
         new MainMenuState(),
         new SettingsState(),
         new GameOverState(),
+        new PauseState(),
         // TODO: Add all the rest
     ];
 
@@ -137,6 +138,11 @@ public partial class GameManager : Singleton<GameManager>
         Lives--;
     }
 
+    public void TogglePause()
+    {
+        SceneTree.Paused = !SceneTree.Paused;
+    }
+
 
     #region State Machine
 
@@ -168,8 +174,9 @@ public partial class GameManager : Singleton<GameManager>
             _loadedStates.Pop();
         }
 
-        // ? - Works great in Godot, but is broken in Unity
-        previousState?.OnExit();
+        // the operators ?? and ? - Works great in Godot, but are broken in Unity
+        // ? - checks wheter the left operand is null or not, and executes the right operand if it's not null.
+        previousState?.OnExit(keepPrevious);
 
         if (ActiveState != nextState)
         {

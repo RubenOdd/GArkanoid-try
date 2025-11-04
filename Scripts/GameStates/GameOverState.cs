@@ -10,6 +10,7 @@ public class GameOverState : GameStateBase
 
     public GameOverState()
     {
+        AddTargetState(StateType.Game);
         AddTargetState(StateType.MainMenu);
     }
 }

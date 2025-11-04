@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bqryl1jbmn2oo"]
+
+[ext_resource type="Script" uid="uid://bk4oemsv02ded" path="res://Scripts/UI/UIHideNode.cs" id="1_if87g"]
+
+[node name="HiddenGremlinNode" type="Node"]
+script = ExtResource("1_if87g")
