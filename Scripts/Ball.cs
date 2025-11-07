@@ -48,11 +48,17 @@ public partial class Ball : CharacterBody2D
             GodotObject collidedObject = collisionInfo.GetCollider();
             if (collidedObject is Block block)
             {
+                LevelManager.Active.EffectPlayer.PlayEffect(EffectType.Hit, GlobalPosition);
                 block.Hit();
             }
             else if (collidedObject is Wall wall && wall.IsHazard)
             {
+                LevelManager.Active.EffectPlayer.PlayEffect(EffectType.Death, GlobalPosition);
                 GameManager.Instance.DecreaseLives();
+            }
+            else
+            {
+                LevelManager.Active.EffectPlayer.PlayEffect(EffectType.Bounce, GlobalPosition);
             }
         }
     }

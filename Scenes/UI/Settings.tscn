@@ -13,7 +13,7 @@ texture_margin_top = 13.0
 texture_margin_right = 13.0
 texture_margin_bottom = 13.0
 
-[node name="Settings" type="Control" node_paths=PackedStringArray("_closeButton", "_menuButon", "_masterControl", "_musicControl", "_sfxControl", "_windowSizeOption", "_fullscreenToggle")]
+[node name="Settings" type="Control" node_paths=PackedStringArray("_closeButton", "_menuButon", "_masterControl", "_musicControl", "_sfxControl", "_windowSizeOption", "_fullscreenCheck")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -35,7 +35,7 @@ _masterBusDisplayName = "Master"
 _musicBusDisplayName = "Music"
 _sfxBusDisplayName = "SFX"
 _windowSizeOption = NodePath("MarginContainer/Panel/VideoContainer/ResolutionDropdown")
-_fullscreenToggle = NodePath("MarginContainer/Panel/VideoContainer/CheckBox")
+_fullscreenCheck = NodePath("MarginContainer/Panel/VideoContainer/CheckBox")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -121,14 +121,6 @@ vertical_alignment = 1
 
 [node name="ResolutionDropdown" type="OptionButton" parent="MarginContainer/Panel/VideoContainer"]
 layout_mode = 2
-selected = 0
-item_count = 3
-popup/item_0/text = "640 x 360"
-popup/item_0/id = 0
-popup/item_1/text = "1280 x 720"
-popup/item_1/id = 1
-popup/item_2/text = "1920 x 1080"
-popup/item_2/id = 2
 
 [node name="CheckBox" type="CheckBox" parent="MarginContainer/Panel/VideoContainer"]
 layout_mode = 2

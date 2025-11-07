@@ -4,3 +4,4 @@
 
 [node name="HiddenGremlinNode" type="Node"]
 script = ExtResource("1_if87g")
+_enableStates = Array[int]([5])

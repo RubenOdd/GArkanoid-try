@@ -15,6 +15,7 @@ public partial class LevelManager : Node2D
 
     // TODO: When is this initialized?
     public static LevelManager Active { get; private set; } = null;
+    [Export] public EffectPlayer EffectPlayer { get; private set; }
 
     public override void _Ready()
     {
@@ -32,6 +33,7 @@ public partial class LevelManager : Node2D
         }
 
     }
+
 
     public static string GetLevelcContentPath(int levelIndex)
     {

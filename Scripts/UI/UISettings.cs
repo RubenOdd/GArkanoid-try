@@ -6,12 +6,30 @@
 using GA.GArkanoid.States;
 using GA.GArkanoid.Systems;
 using Godot;
-using System;
+using System.Collections.Generic;
+using System.Data.Common;
 using System.Text.RegularExpressions;
 
 namespace GA.GArkanoid.UI;
 public partial class UISettings : Control
 {
+    private struct Resolution
+    {
+        public int Width;
+        public int Height;
+        public int Multiplyer;
+
+        public override string ToString()
+        {
+            return $"{Width}x{Height}";
+        }
+
+        public static explicit operator Vector2I(Resolution resolution)
+        {
+            return new Vector2I(resolution.Width, resolution.Height);
+        }
+    }
+
     [Export] private Button _closeButton = null;
     [Export] private Button _menuButon = null;
     [Export] private UIAudioControl _masterControl = null;
@@ -24,7 +42,8 @@ public partial class UISettings : Control
     [Export] private string _musicBusDisplayName = null;
     [Export] private string _sfxBusDisplayName = null;
     [Export] private OptionButton _windowSizeOption = null;
-    [Export] private CheckBox _fullscreenToggle = null;
+    [Export] private CheckBox _fullscreenCheck = null;
+    private Dictionary<int, Resolution> _resolutions = [];
 
     public override void _Ready()
     {
@@ -41,8 +60,7 @@ public partial class UISettings : Control
         _musicControl.VolumeChanged += OnVolumeChanged;
         _sfxControl.VolumeChanged += OnVolumeChanged;
 
-        _windowSizeOption.ItemSelected += OnWindowResolutionSelected;
-        _fullscreenToggle.Toggled += OnWindowModeSelected;
+        _fullscreenCheck.Toggled += OnFullscreenToggled;
     }
 
     public override void _ExitTree()
@@ -53,13 +71,42 @@ public partial class UISettings : Control
         _musicControl.VolumeChanged -= OnVolumeChanged;
         _sfxControl.VolumeChanged -= OnVolumeChanged;
 
-        _windowSizeOption.ItemSelected -= OnWindowResolutionSelected;
-        _fullscreenToggle.Toggled -= OnWindowModeSelected;
+        _fullscreenCheck.Toggled -= OnFullscreenToggled;
     }
 
     private void InitializeVideoControl()
     {
-        throw new NotImplementedException();
+        Vector2I viewportSize = GameManager.MinWindowSize;
+        int currentScreen = DisplayServer.WindowGetCurrentScreen();
+        Vector2I screnSize = DisplayServer.ScreenGetSize();
+        int multiplyer = 1;
+        int id = 0;
+
+        while (GetWidth(viewportSize, multiplyer) <= screnSize.X &&
+            GetHeight(viewportSize, multiplyer) <= screnSize.Y)
+        {
+            Resolution resolution = new()
+            {
+                Width = GetWidth(viewportSize, multiplyer),
+                Height = GetHeight(viewportSize, multiplyer),
+                Multiplyer = multiplyer
+            };
+
+            _resolutions.Add(id, resolution);
+            _windowSizeOption.AddItem(resolution.ToString(), id);
+
+            multiplyer++;
+            id++;
+        }
+    }
+
+    private static int GetWidth(Vector2I viewportSize, int multiplyer)
+    {
+        return viewportSize.X * multiplyer;
+    }
+    private static int GetHeight(Vector2I viewportSize, int multiplyer)
+    {
+        return viewportSize.Y * multiplyer;
     }
 
 
@@ -97,42 +144,67 @@ public partial class UISettings : Control
         }
     }
 
-    private void OnWindowModeSelected(bool toggle)
+    private void OnFullscreenToggled(bool toggle)
     {
-        if (toggle)
-        {
-            DisplayServer.WindowSetMode(DisplayServer.WindowMode.Fullscreen);
-            DisplayServer.WindowSetFlag(DisplayServer.WindowFlags.Borderless, true);
-        }
-        else
-        {
-            DisplayServer.WindowSetMode(DisplayServer.WindowMode.Windowed);
-            DisplayServer.WindowSetFlag(DisplayServer.WindowFlags.Borderless, false);
-        }
+        _windowSizeOption.Disabled = toggle;
+
+        // if (toggle)
+        // {
+        //     DisplayServer.WindowSetMode(DisplayServer.WindowMode.Fullscreen);
+        //     DisplayServer.WindowSetFlag(DisplayServer.WindowFlags.Borderless, true);
+        // }
+        // else
+        // {
+        //     DisplayServer.WindowSetMode(DisplayServer.WindowMode.Windowed);
+        //     DisplayServer.WindowSetFlag(DisplayServer.WindowFlags.Borderless, false);
+        // }
     }
 
-    private void OnWindowResolutionSelected(long index)
+    // private void OnWindowResolutionSelected(long index)
+    // {
+    //     if (index < 0 || index > 2)
+    //     {
+    //         GD.PrintErr($"Something is worng with resolution selection. Index it gives is {index}");
+    //     }
+    //     switch(index)
+    //     {
+    //         case 0:
+    //             DisplayServer.WindowSetSize(Config.Window640);
+    //             break;
+    //         case 1:
+    //             DisplayServer.WindowSetSize(Config.Window1280);
+    //             break;
+    //         case 2:
+    //             DisplayServer.WindowSetSize(Config.Window1920);
+    //             break;
+    //     }
+    // }
+
+    private void ApplySettings()
     {
-        if (index < 0 || index > 2)
+        // Set resolution
+        int resolutionIndex = _windowSizeOption.Selected;
+        if (resolutionIndex < 0)
         {
-            GD.PrintErr($"Something is worng with resolution selection. Index it gives is {index}");
+            // nothing selected
+            return;
         }
-        switch(index)
-        {
-            case 0:
-                DisplayServer.WindowSetSize(Config.Window640);
-                break;
-            case 1:
-                DisplayServer.WindowSetSize(Config.Window1280);
-                break;
-            case 2:
-                DisplayServer.WindowSetSize(Config.Window1920);
-                break;
-        }
+
+        Resolution resolution = _resolutions[resolutionIndex];
+        DisplayServer.WindowSetSize((Vector2I)resolution);
+
+        // Set window mode
+        DisplayServer.WindowMode windowMode = _fullscreenCheck.ButtonPressed
+            ? DisplayServer.WindowMode.Fullscreen
+            : DisplayServer.WindowMode.Windowed;
+
+        DisplayServer.WindowSetMode(windowMode);
     }
 
     private void OnClose()
     {
+        ApplySettings();
+
         GameManager.Instance.ActivatePreviousState();
     }
 

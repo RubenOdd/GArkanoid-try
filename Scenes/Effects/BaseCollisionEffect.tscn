@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://dmfu60jjekrur"]
+
+[ext_resource type="Script" uid="uid://dyseydbpjxw0n" path="res://Scripts/Effect.cs" id="1_7ajup"]
+[ext_resource type="Texture2D" uid="uid://brm4nk4v0jd80" path="res://Sprites/Animations/pixel-explosion.png" id="1_7bhkf"]
+[ext_resource type="Material" uid="uid://ba4r0d813vxhn" path="res://Shaders/BaseCollisionMaterial.tres" id="2_cop41"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_duik1"]
+particles_animation = true
+particles_anim_h_frames = 2
+particles_anim_v_frames = 3
+particles_anim_loop = false
+
+[node name="BaseCollisionEffect" type="Node2D" node_paths=PackedStringArray("ParticleEffect")]
+script = ExtResource("1_7ajup")
+ParticleEffect = NodePath("GPUParticles2D")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_duik1")
+emitting = false
+texture = ExtResource("1_7bhkf")
+lifetime = 0.26
+one_shot = true
+explosiveness = 1.0
+process_material = ExtResource("2_cop41")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"SFX"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bq6sa78g74vmn"]
+[gd_scene load_steps=23 format=3 uid="uid://bq6sa78g74vmn"]
 
 [ext_resource type="PackedScene" uid="uid://bu2q68kl1hs7j" path="res://Scenes/Paddle.tscn" id="1_0ba56"]
 [ext_resource type="Script" uid="uid://c6wi5lfe6vej4" path="res://Scripts/LevelManager.cs" id="1_5rrr5"]
@@ -9,6 +9,12 @@
 [ext_resource type="Texture2D" uid="uid://c7w1dm10ap8d0" path="res://Sprites/32/corner.png" id="4_xylue"]
 [ext_resource type="PackedScene" uid="uid://d1cfbhtnlqo1i" path="res://Scenes/LevelContent/Level1.tscn" id="8_5rrr5"]
 [ext_resource type="PackedScene" uid="uid://dftcxl8efc7x0" path="res://Scenes/UI/InGameUI.tscn" id="9_or7tv"]
+[ext_resource type="Script" uid="uid://mhh71peyqj70" path="res://Scripts/EffectPlayer.cs" id="10_133si"]
+[ext_resource type="PackedScene" uid="uid://cx1pl04bllkdm" path="res://Scenes/Effects/BounceEffect.tscn" id="11_fhlu0"]
+[ext_resource type="Script" uid="uid://b7ex1l5oxc7rr" path="res://Scripts/Data/EffectSceneEntry.cs" id="12_bktio"]
+[ext_resource type="PackedScene" uid="uid://bmltiewbmi211" path="res://Scenes/Effects/HitEffect.tscn" id="13_44tr1"]
+[ext_resource type="Script" uid="uid://qbe6x0xlbnph" path="res://Scripts/Data/EffectMap.cs" id="13_nrlyp"]
+[ext_resource type="PackedScene" uid="uid://d12ndkuaanwv" path="res://Scenes/Effects/DeathEffect.tscn" id="14_pmxqn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vsvp5"]
 size = Vector2(605, 20)
@@ -19,10 +25,34 @@ size = Vector2(20, 22)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5rrr5"]
 size = Vector2(25, 20)
 
-[node name="Level" type="Node2D" node_paths=PackedStringArray("CurrentBall", "CurrentPaddle")]
+[sub_resource type="Resource" id="Resource_fhlu0"]
+script = ExtResource("12_bktio")
+EffectType = 1
+Scene = ExtResource("11_fhlu0")
+metadata/_custom_type_script = "uid://b7ex1l5oxc7rr"
+
+[sub_resource type="Resource" id="Resource_gs5q7"]
+script = ExtResource("12_bktio")
+EffectType = 2
+Scene = ExtResource("13_44tr1")
+metadata/_custom_type_script = "uid://b7ex1l5oxc7rr"
+
+[sub_resource type="Resource" id="Resource_q24aw"]
+script = ExtResource("12_bktio")
+EffectType = 3
+Scene = ExtResource("14_pmxqn")
+metadata/_custom_type_script = "uid://b7ex1l5oxc7rr"
+
+[sub_resource type="Resource" id="Resource_bktio"]
+script = ExtResource("13_nrlyp")
+_entries = Array[Object]([SubResource("Resource_fhlu0"), SubResource("Resource_gs5q7"), SubResource("Resource_q24aw")])
+metadata/_custom_type_script = "uid://qbe6x0xlbnph"
+
+[node name="Level" type="Node2D" node_paths=PackedStringArray("CurrentBall", "CurrentPaddle", "EffectPlayer")]
 script = ExtResource("1_5rrr5")
 CurrentBall = NodePath("TheBall")
 CurrentPaddle = NodePath("Paddle")
+EffectPlayer = NodePath("EffectPlayer")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(320, 180)
@@ -47,6 +77,7 @@ position = Vector2(-4.5, 1)
 shape = SubResource("RectangleShape2D_vsvp5")
 
 [node name="Sprite2D" type="Sprite2D" parent="Borders/BotBorder/CollisionShape2D"]
+modulate = Color(1, 0.054902, 0.172549, 1)
 position = Vector2(-4.24999, 0.75001)
 scale = Vector2(20.1719, 0.671874)
 texture = ExtResource("3_fuudy")
@@ -128,5 +159,9 @@ offset_bottom = 360.0
 offset_left = 26.0
 offset_top = 24.0
 offset_right = -27.0
+
+[node name="EffectPlayer" type="Node2D" parent="."]
+script = ExtResource("10_133si")
+EffectMap = SubResource("Resource_bktio")
 
 [editable path="InGameUI"]

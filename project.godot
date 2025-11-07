@@ -32,6 +32,7 @@ project/assembly_name="Arkanoid Look Alike"
 [file_customization]
 
 folder_colors={
+"res://Audio/": "purple",
 "res://Scenes/": "blue",
 "res://Scripts/": "yellow",
 "res://Shaders/": "pink",
