@@ -7,7 +7,6 @@
 [ext_resource type="Script" uid="uid://debvecegialmn" path="res://Scripts/Wall.cs" id="4_or7tv"]
 [ext_resource type="Texture2D" uid="uid://cx0d6t17cbscr" path="res://Sprites/32/vertical.png" id="4_tj5wv"]
 [ext_resource type="Texture2D" uid="uid://c7w1dm10ap8d0" path="res://Sprites/32/corner.png" id="4_xylue"]
-[ext_resource type="PackedScene" uid="uid://d1cfbhtnlqo1i" path="res://Scenes/LevelContent/Level1.tscn" id="8_5rrr5"]
 [ext_resource type="PackedScene" uid="uid://dftcxl8efc7x0" path="res://Scenes/UI/InGameUI.tscn" id="9_or7tv"]
 [ext_resource type="Script" uid="uid://mhh71peyqj70" path="res://Scripts/EffectPlayer.cs" id="10_133si"]
 [ext_resource type="PackedScene" uid="uid://cx1pl04bllkdm" path="res://Scenes/Effects/BounceEffect.tscn" id="11_fhlu0"]
@@ -15,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://bmltiewbmi211" path="res://Scenes/Effects/HitEffect.tscn" id="13_44tr1"]
 [ext_resource type="Script" uid="uid://qbe6x0xlbnph" path="res://Scripts/Data/EffectMap.cs" id="13_nrlyp"]
 [ext_resource type="PackedScene" uid="uid://d12ndkuaanwv" path="res://Scenes/Effects/DeathEffect.tscn" id="14_pmxqn"]
+[ext_resource type="AudioStream" uid="uid://j4d8axaoj33" path="res://Audio/827128__nate_tha_late__electro-d-n-b.wav" id="16_44tr1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vsvp5"]
 size = Vector2(605, 20)
@@ -149,8 +149,6 @@ position = Vector2(12, 10)
 scale = Vector2(0.71875, 0.6875)
 texture = ExtResource("4_xylue")
 
-[node name="LevelLayout" parent="." instance=ExtResource("8_5rrr5")]
-
 [node name="InGameUI" parent="." instance=ExtResource("9_or7tv")]
 offset_right = 640.0
 offset_bottom = 360.0
@@ -163,5 +161,9 @@ offset_right = -27.0
 [node name="EffectPlayer" type="Node2D" parent="."]
 script = ExtResource("10_133si")
 EffectMap = SubResource("Resource_bktio")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("16_44tr1")
+autoplay = true
 
 [editable path="InGameUI"]

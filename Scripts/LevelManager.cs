@@ -1,3 +1,4 @@
+using System;
 using GA.GArkanoid.States;
 using GA.GArkanoid.Systems;
 using Godot;
@@ -20,9 +21,21 @@ public partial class LevelManager : Node2D
     public override void _Ready()
     {
         Active = this;
-        // TODO: Will this work when loading a new level
+        // TODO: Will this work when loading a new level?
         GameManager.Instance.Reset();
+        LoadLevel(GameManager.Instance.LevelIndex);
+    }
+
+    public override void _EnterTree()
+    {
         GameManager.Instance.LivesChanged += OnLivesChanged;
+        GameManager.Instance.ScoreChanged += OnScoreChanged;
+    }
+
+    public override void _ExitTree()
+    {
+        GameManager.Instance.LivesChanged -= OnLivesChanged;
+        GameManager.Instance.ScoreChanged -= OnScoreChanged;
     }
 
     public override void _Process(double delta)
@@ -76,6 +89,18 @@ public partial class LevelManager : Node2D
             CurrentBall = null;
             GameManager.Instance.ChangeState(StateType.GameOver);
             GD.Print("GAme Over");
+        }
+    }
+
+    private void OnScoreChanged(int score)
+    {
+        int blocksLeft = GameManager.Instance.SceneTree.Root.GetNode<Node2D>("Level/LevelLayout").GetChildCount() - 1;
+
+        GD.Print($"{blocksLeft} block left");
+
+        if (blocksLeft <= 0)
+        {
+            GameManager.Instance.ChangeState(StateType.Win);
         }
     }
 }

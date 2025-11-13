@@ -43,6 +43,7 @@ public partial class GameManager : Singleton<GameManager>
         new SettingsState(),
         new GameOverState(),
         new PauseState(),
+        new WinState(),
         // TODO: Add all the rest
     ];
 
@@ -113,7 +114,7 @@ public partial class GameManager : Singleton<GameManager>
     {
         if (score < 0)
         {
-            GD.PrintErr("Added score can't be negative!");
+            GD.PrintErr("Changed score can't be negative!");
             return;
         }
 
@@ -124,7 +125,7 @@ public partial class GameManager : Singleton<GameManager>
     {
         if (score < 0)
         {
-            GD.PrintErr("Added score can't be negative!");
+            GD.PrintErr("Changed score can't be negative!");
             return;
         }
 
