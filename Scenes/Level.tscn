@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bq6sa78g74vmn"]
+[gd_scene load_steps=22 format=3 uid="uid://bq6sa78g74vmn"]
 
 [ext_resource type="PackedScene" uid="uid://bu2q68kl1hs7j" path="res://Scenes/Paddle.tscn" id="1_0ba56"]
 [ext_resource type="Script" uid="uid://c6wi5lfe6vej4" path="res://Scripts/LevelManager.cs" id="1_5rrr5"]
@@ -14,7 +14,6 @@
 [ext_resource type="PackedScene" uid="uid://bmltiewbmi211" path="res://Scenes/Effects/HitEffect.tscn" id="13_44tr1"]
 [ext_resource type="Script" uid="uid://qbe6x0xlbnph" path="res://Scripts/Data/EffectMap.cs" id="13_nrlyp"]
 [ext_resource type="PackedScene" uid="uid://d12ndkuaanwv" path="res://Scenes/Effects/DeathEffect.tscn" id="14_pmxqn"]
-[ext_resource type="AudioStream" uid="uid://j4d8axaoj33" path="res://Audio/827128__nate_tha_late__electro-d-n-b.wav" id="16_44tr1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vsvp5"]
 size = Vector2(605, 20)
@@ -161,9 +160,5 @@ offset_right = -27.0
 [node name="EffectPlayer" type="Node2D" parent="."]
 script = ExtResource("10_133si")
 EffectMap = SubResource("Resource_bktio")
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("16_44tr1")
-autoplay = true
 
 [editable path="InGameUI"]

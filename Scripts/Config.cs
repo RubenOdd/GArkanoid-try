@@ -1,6 +1,7 @@
 // (c) 2025 Sardorbek Mukhudinov
 // License: 3-clause BSD license
 
+using System.IO;
 using Godot;
 
 namespace GA.GArkanoid;
@@ -18,14 +19,33 @@ public static class Config
     public static Vector2I Window1920 = new(1920, 1080);
     #endregion
 
-    #region Initial Ball Settings
-    public const float BallSpeed = 200.0f;
-    public static Vector2 BallDirection = new Vector2(1, -1).Normalized();
-    #endregion
-
     #region Player data
     public static int MaxLives = 100;
-    public static int InitialLives = 3;
-    public static int InitialScore = 0;
+    public static string DefaultPlayerDataPath = "res://Config/DefaultPlayerData.tres";
     #endregion Player data
+
+    #region Audio
+    public static StringName MasterBusName = "Master";
+    public static StringName MusicBusName = "Music";
+    public static StringName SFXBusName = "SFX";
+    public static string MusicDataPath = "res://Config/MusicData.tres";
+    #endregion Audio
+
+    #region Save
+    public static string QuickSaveName = "QuickSave";
+    public static string SaveFolderName = "Save";
+    public static string SaveFileExtension = ".json";
+    public static string PlayerDataKey = "PlayerData";
+    public static string LevelDataKey = "LevelData";
+    public static StringName QuickSaveAction = "QuickSave";
+
+    public static string GetSaveFolderPath()
+    {
+        // The path on user's disk where save files can be written.
+        string path = ProjectSettings.GlobalizePath("user://");
+        // Path.Combine selects corrent path separation character (/ or \) based on the user's platform.
+        path = Path.Combine(path, SaveFolderName);
+        return path;
+    }
+    #endregion Save
 }

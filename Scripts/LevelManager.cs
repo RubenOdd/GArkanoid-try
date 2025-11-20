@@ -1,14 +1,19 @@
-using System;
+using System.Collections;
+using System.Collections.Generic;
+using GA.Common;
 using GA.GArkanoid.States;
 using GA.GArkanoid.Systems;
+using GA.GArkanoid.Save;
 using Godot;
+using Godot.Collections;
 
 namespace GA.GArkanoid;
-public partial class LevelManager : Node2D
+public partial class LevelManager : Node2D, ISave
 {
     private const string LevelContentPath = "res://Scenes/LevelContent/";
     private const string LevelContentName = "Level";
     private const string LevelContentExtension = ".tscn";
+    private int _blockCount = 0;
     [Export]
     public Ball CurrentBall { get; private set; } = null;
     [Export]
@@ -21,9 +26,32 @@ public partial class LevelManager : Node2D
     public override void _Ready()
     {
         Active = this;
-        // TODO: Will this work when loading a new level?
-        GameManager.Instance.Reset();
+        
         LoadLevel(GameManager.Instance.LevelIndex);
+
+        if (EffectPlayer == null)
+        {
+            EffectPlayer = this.GetNode<EffectPlayer>();
+        }
+
+        IList<Block> blocks = this.GetNodesInChildren<Block>();
+
+			// Load the level
+        if (GameManager.Instance.LoadedLevelData != null)
+        {
+            Load(GameManager.Instance.LoadedLevelData);
+            GameManager.Instance.LoadedLevelData = null;
+        }
+
+        // Initialize Blocks
+        foreach (Block block in blocks)
+        {
+            if (block.IsEnabled)
+            {
+                _blockCount++;
+                block.BlockDestroyed += OnBlockDestroyed;
+            }
+        }
     }
 
     public override void _EnterTree()
@@ -45,6 +73,53 @@ public partial class LevelManager : Node2D
             GameManager.Instance.ChangeState(StateType.Pause);
         }
 
+        if (Input.IsActionJustPressed(Config.QuickSaveAction))
+        {
+            GameManager.Instance.Save(Config.QuickSaveName);
+        }
+
+        if (Input.IsActionJustPressed("AutoWin"))
+        {
+            GD.Print("HEARD");
+            foreach (Block block in this.GetNodesInChildren<Block>())
+            {
+                block.Hit();
+            }
+        }
+    }
+
+    public Dictionary Save()
+    {
+        Dictionary ballData = CurrentBall.Save();
+        Dictionary paddleData = CurrentPaddle.Save();
+
+        Dictionary blockData = [];
+        foreach (Block block in this.GetNodesInChildren<Block>(recursive: true))
+        {
+            blockData[block.GUID] = block.IsEnabled;
+        }
+
+        Dictionary levelData = [];
+        levelData["Ball"] = ballData;
+        levelData["Paddle"] = paddleData;
+        levelData["Blocks"] = blockData;
+
+        return levelData;
+    }
+
+    public void Load(Dictionary data)
+    {
+        Dictionary blockData = (Dictionary)data["Blocks"];
+        IList<Block> blocks = this.GetNodesInChildren<Block>();
+        // Restore level data.
+        foreach (Block block in blocks)
+        {
+            bool isEnabled = blockData.TryGetValue(block.GUID, out Variant value) && (bool)value;
+            block.IsEnabled = isEnabled;
+        }
+
+        CurrentBall.Load((Dictionary)data["Ball"]);
+        CurrentPaddle.Load((Dictionary)data["Paddle"]);
     }
 
 
@@ -101,6 +176,18 @@ public partial class LevelManager : Node2D
         if (blocksLeft <= 0)
         {
             GameManager.Instance.ChangeState(StateType.Win);
+        }
+    }
+
+    private void OnBlockDestroyed(Block block)
+    {
+        block.BlockDestroyed -= OnBlockDestroyed;
+        _blockCount--;
+
+        // One one level exists, win when all blocks are destroyed.
+        if (_blockCount <= 0)
+        {
+            GameManager.Instance.ChangeState(States.StateType.Win);
         }
     }
 }

@@ -1,18 +1,21 @@
 // (c) 2025 Sardorbek Mukhudinov
 // License: 3-clause BSD license
 
+using System;
+using GA.GArkanoid.Save;
+using GA.GArkanoid.Systems;
 using Godot;
+using Godot.Collections;
 
 namespace GA.GArkanoid;
 
-public partial class Paddle : CharacterBody2D
+public partial class Paddle : CharacterBody2D, ISave
 {
-    [Export]
-    public float Speed { get; set; } = 200.0f;
     private float _horizontalInput = 0.0f;
     private float _mouseInput = 0.0f;
     private Vector2 _screenSize;
     private Vector2 _paddleSize;
+    private float _speed = 0.0f;
 
     public Ball CurrentBall { get { return LevelManager.Active.CurrentBall; }}
 
@@ -21,6 +24,8 @@ public partial class Paddle : CharacterBody2D
     public override void _Ready()
     {
         _screenSize = GetViewportRect().Size;
+
+        _speed = GameManager.Instance.CurrentPlayerData.PaddleSpeed;
     }
     public override void _Process(double delta)
     {
@@ -39,7 +44,8 @@ public partial class Paddle : CharacterBody2D
         // If we have a ball, let it be launched by player
         if (CurrentBall != null && !CurrentBall.IsLaunched && @event.IsActionPressed(Config.LaunchAction))
         {
-            CurrentBall.Launch(Config.BallSpeed, Config.BallDirection);
+            CurrentBall.Launch(GameManager.Instance.CurrentPlayerData.BallSpeed,
+					GameManager.Instance.CurrentPlayerData.LaunchDirection.Normalized());
         }
     }
 
@@ -49,8 +55,8 @@ public partial class Paddle : CharacterBody2D
         if (Mathf.IsZeroApprox(_mouseInput))
         {
             // if there is no mouse movement, call the horizontal axis movement
-            Vector2 movement = new Vector2(_horizontalInput, 0.0f);
-            movement *= Speed * (float)delta;
+            Vector2 movement = new(_horizontalInput, 0.0f);
+            movement *= _speed * (float)delta;
             MoveAndCollide(movement);
 
             // Fix for the controllers that shut off while inputting, so that the paddle stops
@@ -59,7 +65,7 @@ public partial class Paddle : CharacterBody2D
         else
         {
             // ignores the paddle's Speed completely, to make the movement feel better
-            Vector2 movement = new Vector2(_mouseInput, 0.0f);
+            Vector2 movement = new(_mouseInput, 0.0f);
             MoveAndCollide(movement);
             _mouseInput = 0.0f;
         }
@@ -79,6 +85,29 @@ public partial class Paddle : CharacterBody2D
             GetViewportRect().Position + scaledSize,
             GetViewportRect().End - scaledSize
         );
+    }
+
+    public Dictionary Save()
+    {
+        Dictionary positionData = new Dictionary
+        {
+            {"X", GlobalPosition.X},
+            {"Y", GlobalPosition.Y}
+        };
+
+        Dictionary paddleData = [];
+        paddleData["Speed"] = _speed;
+        paddleData["Position"] = positionData;
+
+        return paddleData;
+    }
+
+    public void Load(Dictionary data)
+    {
+        _speed = (float)data["Speed"];
+
+        Dictionary positionData = (Dictionary)data["Position"];
+        GlobalPosition = new Vector2((float)positionData["X"], (float)positionData["Y"]);
     }
     #endregion
 }

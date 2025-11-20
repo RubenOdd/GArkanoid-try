@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="MusicData" load_steps=7 format=3 uid="uid://duokbl8ju7lb4"]
+
+[ext_resource type="AudioStream" uid="uid://t4ixfuf8ue4y" path="res://Audio/827096__johnmode__industrial-125bpm-drum-loop-big-reverb-echo.wav" id="1_itxb6"]
+[ext_resource type="Script" uid="uid://c004vp33dja0f" path="res://Scripts/Data/MusicData.cs" id="1_mc0rs"]
+[ext_resource type="Script" uid="uid://dgvxmk85fc8va" path="res://Scripts/Data/StateMusicMap.cs" id="2_lwft8"]
+[ext_resource type="AudioStream" uid="uid://j4d8axaoj33" path="res://Audio/827128__nate_tha_late__electro-d-n-b.wav" id="3_lwft8"]
+
+[sub_resource type="Resource" id="Resource_p0ary"]
+script = ExtResource("2_lwft8")
+StateType = 1
+MusicTrack = ExtResource("1_itxb6")
+metadata/_custom_type_script = "uid://dgvxmk85fc8va"
+
+[sub_resource type="Resource" id="Resource_w2kxr"]
+script = ExtResource("2_lwft8")
+StateType = 4
+MusicTrack = ExtResource("3_lwft8")
+metadata/_custom_type_script = "uid://dgvxmk85fc8va"
+
+[resource]
+script = ExtResource("1_mc0rs")
+StateMusicMapping = [SubResource("Resource_p0ary"), SubResource("Resource_w2kxr")]
+metadata/_custom_type_script = "uid://c004vp33dja0f"

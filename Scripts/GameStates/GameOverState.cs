@@ -1,8 +1,9 @@
 // (c) 2025 Sardorbek Mukhudinov
 // License: 3-clause BSD license
 
-namespace GA.GArkanoid.States;
+using GA.GArkanoid.Systems;
 
+namespace GA.GArkanoid.States;
 public class GameOverState : GameStateBase
 {
     public override StateType StateType => StateType.GameOver;
@@ -12,5 +13,12 @@ public class GameOverState : GameStateBase
     {
         AddTargetState(StateType.Game);
         AddTargetState(StateType.MainMenu);
+    }
+
+    public override void OnEnter(bool forceLoad = false)
+    {
+        base.OnEnter(forceLoad);
+
+        GameManager.Instance.StopMusic();
     }
 }

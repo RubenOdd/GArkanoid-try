@@ -8,103 +8,124 @@
 position = Vector2(137, 63)
 _blockColor = Color(0.909804, 0.109804, 0.164706, 1)
 _score = 150
+GUID = "d77bf9d9-8aa2-4e3f-81f3-4efc3cf74040"
 
 [node name="Block2" parent="." instance=ExtResource("1_k1fx7")]
 position = Vector2(204, 63)
 _blockColor = Color(0.909804, 0.109804, 0.164706, 1)
 _score = 150
+GUID = "ded09ec7-e0a4-48b8-9ced-9329a5e9a952"
 
 [node name="Block3" parent="." instance=ExtResource("1_k1fx7")]
 position = Vector2(271, 63)
 _blockColor = Color(0.909804, 0.109804, 0.164706, 1)
 _score = 150
+GUID = "d4c504a6-6647-43ea-a33d-d1ca745e56df"
 
 [node name="Block4" parent="." instance=ExtResource("1_k1fx7")]
 position = Vector2(338, 63)
 _blockColor = Color(0.909804, 0.109804, 0.164706, 1)
 _score = 150
+GUID = "af3acc86-8d59-49ef-a3e0-2c9acbd016bc"
 
 [node name="Block5" parent="." instance=ExtResource("1_k1fx7")]
 position = Vector2(405, 63)
 _blockColor = Color(0.909804, 0.109804, 0.164706, 1)
 _score = 150
+GUID = "1e185a40-c9bc-4693-b300-64f9c4c10abb"
 
 [node name="Block6" parent="." instance=ExtResource("1_k1fx7")]
 position = Vector2(471, 63)
 _blockColor = Color(0.909804, 0.109804, 0.164706, 1)
 _score = 150
+GUID = "af5b1132-eb90-4130-9704-293e91ee92be"
 
 [node name="Block7" parent="." instance=ExtResource("1_k1fx7")]
 position = Vector2(538, 63)
 _blockColor = Color(0.909804, 0.109804, 0.164706, 1)
 _score = 150
+GUID = "b152f637-1912-42d0-aa93-0594376f6a79"
 
 [node name="Block8" parent="." instance=ExtResource("1_k1fx7")]
 position = Vector2(104, 100)
 _blockColor = Color(1, 0.843137, 0.0823529, 1)
 _score = 100
+GUID = "4f562515-f3b2-414c-a5db-ddafba2fd397"
 
 [node name="Block9" parent="." instance=ExtResource("1_k1fx7")]
 position = Vector2(171, 100)
 _blockColor = Color(1, 0.843137, 0.0823529, 1)
 _score = 100
+GUID = "2efc3b38-9692-4949-b9bb-8c031f0f9a4d"
 
 [node name="Block10" parent="." instance=ExtResource("1_k1fx7")]
 position = Vector2(238, 100)
 _blockColor = Color(1, 0.843137, 0.0823529, 1)
 _score = 100
+GUID = "e49b6410-c138-48fa-95ff-69281825ebe1"
 
 [node name="Block11" parent="." instance=ExtResource("1_k1fx7")]
 position = Vector2(305, 100)
 _blockColor = Color(1, 0.843137, 0.0823529, 1)
 _score = 100
+GUID = "224565b3-3d6e-432e-b715-5617da9c8fba"
 
 [node name="Block12" parent="." instance=ExtResource("1_k1fx7")]
 position = Vector2(372, 100)
 _blockColor = Color(1, 0.843137, 0.0823529, 1)
 _score = 100
+GUID = "ce4b966a-ca44-4ad9-84fc-9d150c636e9c"
 
 [node name="Block13" parent="." instance=ExtResource("1_k1fx7")]
 position = Vector2(438, 100)
 _blockColor = Color(1, 0.843137, 0.0823529, 1)
 _score = 100
+GUID = "38dfb42b-3a38-4ec2-95ca-3e03d44f685e"
 
 [node name="Block14" parent="." instance=ExtResource("1_k1fx7")]
 position = Vector2(505, 100)
 _blockColor = Color(1, 0.843137, 0.0823529, 1)
 _score = 100
+GUID = "4cb7185a-1313-4545-9020-3087795f581f"
 
 [node name="Block15" parent="." instance=ExtResource("1_k1fx7")]
 position = Vector2(137, 136)
 _blockColor = Color(0.0980392, 0.737255, 1, 1)
 _score = 50
+GUID = "19f6b0a3-f5f4-4a75-83aa-263dbca87cff"
 
 [node name="Block16" parent="." instance=ExtResource("1_k1fx7")]
 position = Vector2(204, 136)
 _blockColor = Color(0.0980392, 0.737255, 1, 1)
 _score = 50
+GUID = "bb9ce4ab-e60d-42a7-a371-c83651adb920"
 
 [node name="Block17" parent="." instance=ExtResource("1_k1fx7")]
 position = Vector2(271, 136)
 _blockColor = Color(0.0980392, 0.737255, 1, 1)
 _score = 50
+GUID = "441569f9-9651-4ef7-95b3-11ec09b1ed31"
 
 [node name="Block18" parent="." instance=ExtResource("1_k1fx7")]
 position = Vector2(338, 136)
 _blockColor = Color(0.0980392, 0.737255, 1, 1)
 _score = 50
+GUID = "b19deca2-7af2-45fb-ac09-de3976bb1257"
 
 [node name="Block19" parent="." instance=ExtResource("1_k1fx7")]
 position = Vector2(405, 136)
 _blockColor = Color(0.0980392, 0.737255, 1, 1)
 _score = 50
+GUID = "184d7148-c120-47c5-a5ab-1dedeb064402"
 
 [node name="Block20" parent="." instance=ExtResource("1_k1fx7")]
 position = Vector2(471, 136)
 _blockColor = Color(0.0980392, 0.737255, 1, 1)
 _score = 50
+GUID = "7e7fd060-b3f8-4ae2-b9d9-4177a39ae3d9"
 
 [node name="Block21" parent="." instance=ExtResource("1_k1fx7")]
 position = Vector2(538, 136)
 _blockColor = Color(0.0980392, 0.737255, 1, 1)
 _score = 50
+GUID = "1f4e3e33-3e38-4e75-a398-d4db1df1ed83"

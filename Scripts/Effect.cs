@@ -49,13 +49,7 @@ public partial class Effect : Node2D
 
         if (_effectCount <= 0)
         {
-            CleanUp();
+            QueueFree();
         }
-    }
-
-
-    private void CleanUp()
-    {
-        QueueFree();
     }
 }
