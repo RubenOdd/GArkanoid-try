@@ -89,10 +89,7 @@ public partial class GameManager : Singleton<GameManager>
         get
         {
             // Lazy load
-            if (_sceneTree == null)
-            {
-                _sceneTree = GetTree();
-            }
+            _sceneTree ??= GetTree();
 
             return _sceneTree;
         }
@@ -230,6 +227,20 @@ public partial class GameManager : Singleton<GameManager>
         }
     }
 
+    public void SaveSettings(string saveslotName,ConfigFile config)
+    {
+        string savePath = Config.GetSaveFolderPath();
+
+        if (SaveSettingsToFile(savePath, saveslotName, Config.SaveSettingsFileExtension, config))
+        {
+            GD.Print($"Config file for settings has been created at {savePath}");
+        }
+        else
+        {
+            GD.PrintErr("Saving settings failed!");
+        }
+    }
+
     public bool Load(string saveSlotName)
     {
         string savePath = Config.GetSaveFolderPath();
@@ -251,6 +262,23 @@ public partial class GameManager : Singleton<GameManager>
         LoadedLevelData = (Dictionary)loadedData[Config.LevelDataKey];
 
         return true;
+    }
+
+    public ConfigFile LoadSettingsFile(string saveFolder, string saveFile, string saveExtension)
+    {
+        string saveFilePath = Path.Combine(saveFolder, saveFile + saveExtension);
+        ConfigFile config = new();
+
+        try
+        {
+            config.Load($"{saveFilePath}");
+        }
+        catch (Exception e)
+        {
+            GD.PushError($"Something went wrong while loading the settings. Message: {e.Message}");
+        }
+
+        return config;
     }
 
     private string LoadFromFile(string saveFolder, string saveFile, string saveExtension)
@@ -308,6 +336,40 @@ public partial class GameManager : Singleton<GameManager>
             GD.PushError(e.Message);
             return false;
         }
+
+        return true;
+    }
+
+    private bool SaveSettingsToFile(string saveFolder, string saveFile, string saveExtension, ConfigFile config)
+    {
+        if (!Directory.Exists(saveFolder))
+        {
+            try
+            {
+                Directory.CreateDirectory(saveFolder);
+            }
+            catch (ArgumentNullException e)
+            {
+                GD.PushError($"Argument is null. Message: {e.Message}");
+                return false;
+            }
+            catch (PathTooLongException e)
+            {
+                GD.PushError($"Save folder path is too long. Message: {e.Message}");
+                return false;
+            }
+            catch (Exception e)
+            {
+                GD.PushError($"Something went wrong! Message: {e.Message}");
+                return false;
+            }
+        }
+
+        string saveFilePath = Path.Combine(saveFolder, saveFile + saveExtension);
+
+        config.Save($"{saveFilePath}");
+
+        if (!File.Exists(saveFilePath)) GD.Print("Initial settings file does not exist");
 
         return true;
     }

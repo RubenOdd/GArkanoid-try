@@ -6,6 +6,7 @@ using GA.GArkanoid.Systems;
 using GA.GArkanoid.Save;
 using Godot;
 using Godot.Collections;
+using System.IO;
 
 namespace GA.GArkanoid;
 public partial class LevelManager : Node2D, ISave
@@ -184,10 +185,14 @@ public partial class LevelManager : Node2D, ISave
         block.BlockDestroyed -= OnBlockDestroyed;
         _blockCount--;
 
-        // One one level exists, win when all blocks are destroyed.
-        if (_blockCount <= 0)
+        // Gave up on furthering the level
+        if (_blockCount <= 0 && !File.Exists(GetLevelcContentPath(GameManager.Instance.LevelIndex + 1)))
         {
-            GameManager.Instance.ChangeState(States.StateType.Win);
+            GameManager.Instance.ChangeState(StateType.Win);
+        }
+        else
+        {
+            LoadLevel(GameManager.Instance.LevelIndex + 1);
         }
     }
 }

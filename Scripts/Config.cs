@@ -33,8 +33,10 @@ public static class Config
 
     #region Save
     public static string QuickSaveName = "QuickSave";
+    public static string SettingsSaveName = "PlayerSettings";
     public static string SaveFolderName = "Save";
     public static string SaveFileExtension = ".json";
+    public static string SaveSettingsFileExtension = ".ini";
     public static string PlayerDataKey = "PlayerData";
     public static string LevelDataKey = "LevelData";
     public static StringName QuickSaveAction = "QuickSave";
