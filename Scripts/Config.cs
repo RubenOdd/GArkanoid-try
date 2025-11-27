@@ -19,6 +19,13 @@ public static class Config
     public static Vector2I Window1920 = new(1920, 1080);
     #endregion
 
+    #region Level Data
+
+    public const int LevelCount = 2;
+    public const float PowerUpSpawnChance = 0.3f;
+
+    #endregion Level Data
+
     #region Player data
     public static int MaxLives = 100;
     public static string DefaultPlayerDataPath = "res://Config/DefaultPlayerData.tres";

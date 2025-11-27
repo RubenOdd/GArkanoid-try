@@ -2,6 +2,7 @@
 // License: 3-clause BSD license
 
 using System;
+using GA.Common;
 using GA.GArkanoid.Save;
 using GA.GArkanoid.Systems;
 using Godot;
@@ -16,17 +17,30 @@ public partial class Paddle : CharacterBody2D, ISave
     private Vector2 _screenSize;
     private Vector2 _paddleSize;
     private float _speed = 0.0f;
+    private float _width = 1.0f;
+    private CollisionObject2D _collisionShape = null;
 
     public Ball CurrentBall { get { return LevelManager.Active.CurrentBall; }}
+
+    public float Width
+    {
+        get => _width;
+        set
+        {
+            _width = value;
+            UpdatePaddleWidth();
+        }
+    }
 
 
     #region Public Interface
     public override void _Ready()
     {
         _screenSize = GetViewportRect().Size;
-
         _speed = GameManager.Instance.CurrentPlayerData.PaddleSpeed;
+        _collisionShape = this.GetNode<CollisionObject2D>();
     }
+
     public override void _Process(double delta)
     {
         _paddleSize = GetNode<Sprite2D>("CollisionShape2D/Sprite2D").GetRect().Size;
@@ -72,20 +86,6 @@ public partial class Paddle : CharacterBody2D, ISave
 
         ClampToScreen();
     }
-    #endregion
-
-    #region Private Functions
-    /// <summary>
-    /// Used help from my classmate Joel to understand how to math it properly
-    /// </summary>
-    private void ClampToScreen()
-    {
-        Vector2 scaledSize = _paddleSize + GlobalScale / 2;
-        GlobalPosition = GlobalPosition.Clamp(
-            GetViewportRect().Position + scaledSize,
-            GetViewportRect().End - scaledSize
-        );
-    }
 
     public Dictionary Save()
     {
@@ -108,6 +108,39 @@ public partial class Paddle : CharacterBody2D, ISave
 
         Dictionary positionData = (Dictionary)data["Position"];
         GlobalPosition = new Vector2((float)positionData["X"], (float)positionData["Y"]);
+    }
+
+    public void Expand(float multiplyer)
+    {
+        Width *= multiplyer;
+    }
+
+    public void Shrink(float multiplyer)
+    {
+        Width *= 1 / multiplyer;
+    }
+    #endregion
+
+    #region Private Functions
+    /// <summary>
+    /// Used help from my classmate Joel to understand how to math it properly
+    /// </summary>
+    private void ClampToScreen()
+    {
+        Vector2 scaledSize = _paddleSize + GlobalScale / 2;
+        GlobalPosition = GlobalPosition.Clamp(
+            GetViewportRect().Position + scaledSize,
+            GetViewportRect().End - scaledSize
+        );
+    }
+
+    private void UpdatePaddleWidth()
+    {
+        if (_collisionShape != null)
+        {
+            GD.Print("it did it");
+            _collisionShape.Scale = new Vector2(Scale.X, _width);
+        }
     }
     #endregion
 }

@@ -17,7 +17,7 @@ GameManager
 - Switch scenes
 - Score keeping (DONE)
 - Lives (DONE)
-- Centralized access point to other managers / systems (TODO)
+- Centralized access point to other managers / systems (DONE)
 */
 namespace GA.GArkanoid.Systems;
 
@@ -29,7 +29,7 @@ public partial class GameManager : Singleton<GameManager>
     public static Vector2I MinWindowSize { get; private set; }
 
     [Signal]
-    public delegate void LivesChangedEventHandler(int lives);
+    public delegate void LivesChangedEventHandler(int lives, int previous);
 
     [Signal]
     public delegate void ScoreChangedEventHandler(int score);
@@ -71,8 +71,9 @@ public partial class GameManager : Singleton<GameManager>
         get { return CurrentPlayerData.Lives; }
         set
         {
+            int previous = CurrentPlayerData.Lives;
             CurrentPlayerData.Lives = value;
-			EmitSignal(SignalName.LivesChanged, Lives);
+			EmitSignal(SignalName.LivesChanged, Lives, previous);
 
             GD.Print($"Lives left {Lives}");
         }
@@ -81,7 +82,7 @@ public partial class GameManager : Singleton<GameManager>
     public int LevelIndex
     {
         get { return CurrentPlayerData.LevelIndex; }
-        private set { CurrentPlayerData.LevelIndex = value; }
+        set { CurrentPlayerData.LevelIndex = value; }
     }
 
     public SceneTree SceneTree
@@ -377,7 +378,7 @@ public partial class GameManager : Singleton<GameManager>
 
     #region State Machine
 
-    public bool ChangeState(StateType stateType)
+    public bool ChangeState(StateType stateType, bool forceLoad = false)
     {
         if (ActiveState == null)
         {
@@ -420,7 +421,7 @@ public partial class GameManager : Singleton<GameManager>
             _loadedStates.Push(nextState);
         }
 
-        nextState.OnEnter();
+        nextState.OnEnter(forceLoad);
 
         return true;
     }

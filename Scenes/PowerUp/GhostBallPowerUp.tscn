@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://bbmtttyyx71d7"]
+
+[ext_resource type="Script" uid="uid://bql1q8bpuq3lb" path="res://Scripts/PowerUp/PowerUp.cs" id="1_c54se"]
+[ext_resource type="Texture2D" uid="uid://bgpm8xqvj7ela" path="res://Sprites/32/PowerUps/Powerup-Through.png" id="1_stogq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3hf71"]
+size = Vector2(31, 32)
+
+[node name="GhostBallPowerUp" type="Area2D"]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("1_c54se")
+Type = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_3hf71")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_stogq")

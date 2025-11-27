@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://dl0kxsqyc4h15"]
+
+[ext_resource type="Script" uid="uid://bql1q8bpuq3lb" path="res://Scripts/PowerUp/PowerUp.cs" id="1_5eyi3"]
+[ext_resource type="Texture2D" uid="uid://46t055ebbhhq" path="res://Sprites/32/PowerUps/PowerUp-SpeedBoostBall.png" id="2_bd2qq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3hf71"]
+size = Vector2(31, 32)
+
+[node name="SpeedBoostBallPowerUp" type="Area2D"]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("1_5eyi3")
+Type = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_3hf71")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_bd2qq")

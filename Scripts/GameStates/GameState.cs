@@ -15,6 +15,7 @@ public class GameState : GameStateBase
         AddTargetState(StateType.Pause);
         AddTargetState(StateType.GameOver);
         AddTargetState(StateType.Win);
+        AddTargetState(StateType.Game);
     }
 
     public override void OnEnter(bool forceLoad = false)

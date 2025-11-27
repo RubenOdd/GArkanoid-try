@@ -7,6 +7,7 @@ using GA.GArkanoid.Save;
 using Godot;
 using Godot.Collections;
 using System.IO;
+using System;
 
 namespace GA.GArkanoid;
 public partial class LevelManager : Node2D, ISave
@@ -15,14 +16,13 @@ public partial class LevelManager : Node2D, ISave
     private const string LevelContentName = "Level";
     private const string LevelContentExtension = ".tscn";
     private int _blockCount = 0;
-    [Export]
-    public Ball CurrentBall { get; private set; } = null;
-    [Export]
-    protected Paddle CurrentPaddle { get; private set; } = null;
+    [Export] public Ball CurrentBall { get; private set; } = null;
+    [Export] public Paddle CurrentPaddle { get; private set; } = null;
 
     // TODO: When is this initialized?
     public static LevelManager Active { get; private set; } = null;
     [Export] public EffectPlayer EffectPlayer { get; private set; }
+    [Export] public PowerUpManager PowerUpManager { get; private set; }
 
     public override void _Ready()
     {
@@ -34,6 +34,8 @@ public partial class LevelManager : Node2D, ISave
         {
             EffectPlayer = this.GetNode<EffectPlayer>();
         }
+
+        PowerUpManager ??= this.GetNode<PowerUpManager>();
 
         IList<Block> blocks = this.GetNodesInChildren<Block>();
 
@@ -151,20 +153,19 @@ public partial class LevelManager : Node2D, ISave
         return true;
     }
 
-    public void OnLivesChanged(int lives)
+    public void OnLivesChanged(int lives, int previous)
     {
-        if (lives > 0)
+        bool lostLives = previous - lives > 0;
+        if (lostLives)
         {
-            CurrentBall.ResetBall();
-        }
-        else
-        {
-            // Game over
-            // TODO: DOn't sctually destroy
-            CurrentBall.QueueFree();
-            CurrentBall = null;
-            GameManager.Instance.ChangeState(StateType.GameOver);
-            GD.Print("GAme Over");
+            if (lives > 0)
+            {
+                CurrentBall.ResetBall();
+            }
+            else
+            {
+                GameManager.Instance.ChangeState(StateType.GameOver);
+            }
         }
     }
 
@@ -185,14 +186,37 @@ public partial class LevelManager : Node2D, ISave
         block.BlockDestroyed -= OnBlockDestroyed;
         _blockCount--;
 
+        SpawnPowerUp(block.GlobalPosition, block.GuaranteedPowerUp);
+
         // Gave up on furthering the level
-        if (_blockCount <= 0 && !File.Exists(GetLevelcContentPath(GameManager.Instance.LevelIndex + 1)))
+        if (_blockCount <= 0)
         {
-            GameManager.Instance.ChangeState(StateType.Win);
+            GameManager.Instance.LevelIndex++;
+            if (GameManager.Instance.LevelIndex > Config.LevelCount)
+            {
+                GameManager.Instance.ChangeState(StateType.Win);
+            }
+            else
+            {
+                GameManager.Instance.ChangeState(StateType.Game);
+            }
         }
-        else
+    }
+
+    private void SpawnPowerUp(Vector2 globalPosition, PowerUpType guaranteedPowerUp)
+    {
+        PowerUpType powerUpToSpawn = guaranteedPowerUp;
+
+        if (powerUpToSpawn == PowerUpType.None && GD.Randf() <= Config.PowerUpSpawnChance)
         {
-            LoadLevel(GameManager.Instance.LevelIndex + 1);
+            PowerUpType[] powerUpValues = Enum.GetValues<PowerUpType>();
+            int randomIndex = GD.RandRange(1,powerUpValues.Length - 1);
+            powerUpToSpawn = powerUpValues[randomIndex];
+        }
+
+        if (powerUpToSpawn != PowerUpType.None)
+        {
+            PowerUpManager.SpawnPowerUp(powerUpToSpawn, globalPosition);
         }
     }
 }

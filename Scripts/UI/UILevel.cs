@@ -26,7 +26,7 @@ public partial class UILevel : Control
 
     public override void _Ready()
     {
-        OnLivesChanged(GameManager.Instance.Lives);
+        OnLivesChanged(GameManager.Instance.Lives, GameManager.Instance.Lives);
         OnScoreChanged(GameManager.Instance.Score);
     }
 
@@ -38,7 +38,7 @@ public partial class UILevel : Control
     }
 
 
-    private void OnLivesChanged(int lives)
+    private void OnLivesChanged(int lives, int previous)
     {
         _livesLabel.Text = $"Lives: {lives}";
     }

@@ -1,53 +1,175 @@
-[gd_scene load_steps=2 format=3 uid="uid://boapcu32oahbw"]
+[gd_scene load_steps=3 format=3 uid="uid://dv1hskr3uqtdr"]
 
 [ext_resource type="PackedScene" uid="uid://borcb7rjhnx7h" path="res://Scenes/Block.tscn" id="1_7jn1a"]
+[ext_resource type="Script" uid="uid://dy0p0i4id0grm" path="res://Scripts/Editor/ResetGUIDs.cs" id="1_brw4q"]
 
-[node name="Level2" type="Node2D"]
+[node name="LevelLayout" type="Node2D"]
+script = ExtResource("1_brw4q")
 
 [node name="Block" parent="." instance=ExtResource("1_7jn1a")]
 position = Vector2(137, 63)
+_blockColor = Color(1, 0, 0, 1)
+_score = 150
+GUID = "b99afcb1-b256-4948-80fe-345bdec5b384"
 
 [node name="Block2" parent="." instance=ExtResource("1_7jn1a")]
-position = Vector2(69, 29)
+position = Vector2(204, 63)
+_blockColor = Color(1, 0, 0, 1)
+_score = 150
+GUID = "b1060681-ad9b-44a9-883e-66956e46e535"
 
 [node name="Block3" parent="." instance=ExtResource("1_7jn1a")]
 position = Vector2(271, 63)
+_blockColor = Color(1, 0, 0, 1)
+_score = 150
+GUID = "82e5b3d5-9969-4514-9ff2-a10b02038f58"
 
 [node name="Block4" parent="." instance=ExtResource("1_7jn1a")]
-position = Vector2(203, 29)
+position = Vector2(338, 63)
+_blockColor = Color(1, 0, 0, 1)
+_score = 150
+GUID = "2cafce19-65f3-493e-9202-a3c9d88d83ab"
 
 [node name="Block5" parent="." instance=ExtResource("1_7jn1a")]
 position = Vector2(405, 63)
+_blockColor = Color(1, 0, 0, 1)
+_score = 150
+GUID = "5ad41454-7a82-416c-a253-6064e2cc6a00"
 
 [node name="Block6" parent="." instance=ExtResource("1_7jn1a")]
-position = Vector2(336, 29)
+position = Vector2(471, 63)
+_blockColor = Color(1, 0, 0, 1)
+_score = 150
+GUID = "a1d15778-d694-403a-8744-1ae2bb0bab7c"
 
 [node name="Block7" parent="." instance=ExtResource("1_7jn1a")]
 position = Vector2(538, 63)
+_blockColor = Color(1, 0, 0, 1)
+_score = 150
+GUID = "db750e55-b7bc-4721-9371-a6bc5cfa29dd"
 
 [node name="Block8" parent="." instance=ExtResource("1_7jn1a")]
-position = Vector2(473, 27)
+position = Vector2(104, 100)
+_blockColor = Color(1, 1, 0, 1)
+_score = 100
+GUID = "0a4a8e8a-99ae-4c96-956d-e0c1d797c971"
 
 [node name="Block9" parent="." instance=ExtResource("1_7jn1a")]
-position = Vector2(136, 132)
+position = Vector2(171, 100)
+_blockColor = Color(1, 1, 0, 1)
+_score = 100
+GUID = "d43eb974-1324-4914-a962-639991747c56"
 
 [node name="Block10" parent="." instance=ExtResource("1_7jn1a")]
-position = Vector2(68, 98)
+position = Vector2(238, 100)
+_blockColor = Color(1, 1, 0, 1)
+_score = 100
+GUID = "8a380959-cedb-4db8-97b1-0dd386041d1e"
 
 [node name="Block11" parent="." instance=ExtResource("1_7jn1a")]
-position = Vector2(270, 132)
+position = Vector2(305, 100)
+_blockColor = Color(1, 1, 0, 1)
+_score = 100
+GUID = "6635836d-befb-4a8c-ba8a-045776385f21"
 
 [node name="Block12" parent="." instance=ExtResource("1_7jn1a")]
-position = Vector2(202, 98)
+position = Vector2(372, 100)
+_blockColor = Color(1, 1, 0, 1)
+_score = 100
+GUID = "28d06ed1-a331-4e17-8996-e27bbaae8a7f"
 
 [node name="Block13" parent="." instance=ExtResource("1_7jn1a")]
-position = Vector2(404, 132)
+position = Vector2(438, 100)
+_blockColor = Color(1, 1, 0, 1)
+_score = 100
+GUID = "3e3f9c62-3462-48dc-8275-fa5de41bb7d0"
 
 [node name="Block14" parent="." instance=ExtResource("1_7jn1a")]
-position = Vector2(335, 98)
+position = Vector2(505, 100)
+_blockColor = Color(1, 1, 0, 1)
+_score = 100
+GUID = "063034ad-dd2e-4052-9772-ce12020572c8"
 
 [node name="Block15" parent="." instance=ExtResource("1_7jn1a")]
-position = Vector2(537, 132)
+position = Vector2(137, 136)
+_blockColor = Color(0, 0.784314, 1, 1)
+_score = 50
+GUID = "918cccbb-c49d-428b-81c3-520cdeac33be"
 
 [node name="Block16" parent="." instance=ExtResource("1_7jn1a")]
-position = Vector2(472, 96)
+position = Vector2(204, 136)
+_blockColor = Color(0, 0.784314, 1, 1)
+_score = 50
+GUID = "8edf0307-c0d6-43df-a99f-82e203c971dd"
+
+[node name="Block17" parent="." instance=ExtResource("1_7jn1a")]
+position = Vector2(271, 136)
+_blockColor = Color(0, 0.784314, 1, 1)
+_score = 50
+GUID = "af8e3854-4c60-499b-b4fd-ce210b805691"
+
+[node name="Block18" parent="." instance=ExtResource("1_7jn1a")]
+position = Vector2(338, 136)
+_blockColor = Color(0, 0.784314, 1, 1)
+_score = 50
+GUID = "aba84e4d-35c8-443d-bbc2-f739040c6791"
+
+[node name="Block19" parent="." instance=ExtResource("1_7jn1a")]
+position = Vector2(405, 136)
+_blockColor = Color(0, 0.784314, 1, 1)
+_score = 50
+GUID = "fd13a9d4-9cdd-475b-8a3a-5b6a3f5c46a5"
+
+[node name="Block20" parent="." instance=ExtResource("1_7jn1a")]
+position = Vector2(471, 136)
+_blockColor = Color(0, 0.784314, 1, 1)
+_score = 50
+GUID = "045ea313-7163-4844-bb74-d6915f51e0be"
+
+[node name="Block21" parent="." instance=ExtResource("1_7jn1a")]
+position = Vector2(538, 136)
+_blockColor = Color(0, 0.784314, 1, 1)
+_score = 50
+GUID = "cfd8520a-7584-43bb-be00-96ebc95ec5e2"
+
+[node name="Block22" parent="." instance=ExtResource("1_7jn1a")]
+position = Vector2(103, 172)
+_blockColor = Color(1, 1, 0, 1)
+_score = 100
+GUID = "7c661f7b-d49f-4bc5-bc90-8788a24eedeb"
+
+[node name="Block23" parent="." instance=ExtResource("1_7jn1a")]
+position = Vector2(170, 172)
+_blockColor = Color(1, 1, 0, 1)
+_score = 100
+GUID = "89166cc4-0125-44d3-bd35-9137b8cd819e"
+
+[node name="Block24" parent="." instance=ExtResource("1_7jn1a")]
+position = Vector2(237, 172)
+_blockColor = Color(1, 1, 0, 1)
+_score = 100
+GUID = "0f96150e-353c-4e77-ac6a-7e1ee69c75ef"
+
+[node name="Block25" parent="." instance=ExtResource("1_7jn1a")]
+position = Vector2(304, 172)
+_blockColor = Color(1, 1, 0, 1)
+_score = 100
+GUID = "a36e9f1a-13a9-4d04-b97d-107daf3812b0"
+
+[node name="Block26" parent="." instance=ExtResource("1_7jn1a")]
+position = Vector2(371, 172)
+_blockColor = Color(1, 1, 0, 1)
+_score = 100
+GUID = "f2c018af-7d17-47c5-bf2e-08771d96988b"
+
+[node name="Block27" parent="." instance=ExtResource("1_7jn1a")]
+position = Vector2(437, 172)
+_blockColor = Color(1, 1, 0, 1)
+_score = 100
+GUID = "33366e7a-2cf5-4f5c-b3ff-d1073000816f"
+
+[node name="Block28" parent="." instance=ExtResource("1_7jn1a")]
+position = Vector2(504, 172)
+_blockColor = Color(1, 1, 0, 1)
+_score = 100
+GUID = "328bf20c-a850-4f46-a70f-81d7934b3fdc"

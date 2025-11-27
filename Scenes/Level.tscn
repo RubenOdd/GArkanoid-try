@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bq6sa78g74vmn"]
+[gd_scene load_steps=48 format=3 uid="uid://bq6sa78g74vmn"]
 
 [ext_resource type="PackedScene" uid="uid://bu2q68kl1hs7j" path="res://Scenes/Paddle.tscn" id="1_0ba56"]
 [ext_resource type="Script" uid="uid://c6wi5lfe6vej4" path="res://Scripts/LevelManager.cs" id="1_5rrr5"]
@@ -14,6 +14,20 @@
 [ext_resource type="PackedScene" uid="uid://bmltiewbmi211" path="res://Scenes/Effects/HitEffect.tscn" id="13_44tr1"]
 [ext_resource type="Script" uid="uid://qbe6x0xlbnph" path="res://Scripts/Data/EffectMap.cs" id="13_nrlyp"]
 [ext_resource type="PackedScene" uid="uid://d12ndkuaanwv" path="res://Scenes/Effects/DeathEffect.tscn" id="14_pmxqn"]
+[ext_resource type="Script" uid="uid://p3n6oaeuod0" path="res://Scripts/PowerUp/PowerUpManager.cs" id="15_q24aw"]
+[ext_resource type="PackedScene" uid="uid://3uymxxxhe1k6" path="res://Scenes/PowerUp/ExtendPaddlePowerUp.tscn" id="16_32npc"]
+[ext_resource type="Script" uid="uid://b2jfjbv8thbof" path="res://Scripts/PowerUp/PowerUpSceneMap.cs" id="17_yyp3s"]
+[ext_resource type="PackedScene" uid="uid://bbmtttyyx71d7" path="res://Scenes/PowerUp/GhostBallPowerUp.tscn" id="18_g4pvc"]
+[ext_resource type="PackedScene" uid="uid://bbn6bicc7itym" path="res://Scenes/PowerUp/ExtraLifePowerUp.tscn" id="19_ifohm"]
+[ext_resource type="Script" uid="uid://7s1lbf1ggh30" path="res://Scripts/PowerUp/ExtendPaddle.cs" id="20_g4pvc"]
+[ext_resource type="PackedScene" uid="uid://pt7hxljhf3qh" path="res://Scenes/PowerUp/LoseLifePowerUp.tscn" id="20_ifohm"]
+[ext_resource type="PackedScene" uid="uid://dl0kxsqyc4h15" path="res://Scenes/PowerUp/SpeedBoostBallPowerUp.tscn" id="21_4bpm7"]
+[ext_resource type="Script" uid="uid://cp7wypu04thhl" path="res://Scripts/PowerUp/GhostBall.cs" id="21_ifohm"]
+[ext_resource type="Script" uid="uid://k3ifrir6l6ca" path="res://Scripts/PowerUp/ExtraLife.cs" id="22_17mqb"]
+[ext_resource type="PackedScene" uid="uid://hl4fb7dqcdi4" path="res://Scenes/PowerUp/SlowBallPowerUp.tscn" id="22_i8dsc"]
+[ext_resource type="Script" uid="uid://dn4uqpolilgmg" path="res://Scripts/PowerUp/LoseLife.cs" id="24_17mqb"]
+[ext_resource type="Script" uid="uid://c7edba5rcci31" path="res://Scripts/PowerUp/SpeedBoostBall.cs" id="25_nwvxw"]
+[ext_resource type="Script" uid="uid://dba1hudn3gp72" path="res://Scripts/PowerUp/SlowBall.cs" id="28_p0nbg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vsvp5"]
 size = Vector2(605, 20)
@@ -47,11 +61,79 @@ script = ExtResource("13_nrlyp")
 _entries = Array[Object]([SubResource("Resource_fhlu0"), SubResource("Resource_gs5q7"), SubResource("Resource_q24aw")])
 metadata/_custom_type_script = "uid://qbe6x0xlbnph"
 
-[node name="Level" type="Node2D" node_paths=PackedStringArray("CurrentBall", "CurrentPaddle", "EffectPlayer")]
+[sub_resource type="Resource" id="Resource_32npc"]
+script = ExtResource("17_yyp3s")
+PowerUpType = 1
+PowerUpScene = ExtResource("16_32npc")
+metadata/_custom_type_script = "uid://b2jfjbv8thbof"
+
+[sub_resource type="Resource" id="Resource_yyp3s"]
+script = ExtResource("17_yyp3s")
+PowerUpType = 2
+PowerUpScene = ExtResource("18_g4pvc")
+metadata/_custom_type_script = "uid://b2jfjbv8thbof"
+
+[sub_resource type="Resource" id="Resource_g4pvc"]
+script = ExtResource("17_yyp3s")
+PowerUpType = 5
+PowerUpScene = ExtResource("19_ifohm")
+metadata/_custom_type_script = "uid://b2jfjbv8thbof"
+
+[sub_resource type="Resource" id="Resource_17mqb"]
+script = ExtResource("17_yyp3s")
+PowerUpType = 6
+PowerUpScene = ExtResource("20_ifohm")
+metadata/_custom_type_script = "uid://b2jfjbv8thbof"
+
+[sub_resource type="Resource" id="Resource_p0nbg"]
+script = ExtResource("17_yyp3s")
+PowerUpType = 3
+PowerUpScene = ExtResource("21_4bpm7")
+metadata/_custom_type_script = "uid://b2jfjbv8thbof"
+
+[sub_resource type="Resource" id="Resource_m8wsw"]
+script = ExtResource("17_yyp3s")
+PowerUpType = 4
+PowerUpScene = ExtResource("22_i8dsc")
+metadata/_custom_type_script = "uid://b2jfjbv8thbof"
+
+[sub_resource type="Resource" id="Resource_nwvxw"]
+script = ExtResource("20_g4pvc")
+_multiplyer = 2.0
+Duration = 0.0
+metadata/_custom_type_script = "uid://7s1lbf1ggh30"
+
+[sub_resource type="Resource" id="Resource_4bpm7"]
+script = ExtResource("21_ifohm")
+Duration = 0.0
+metadata/_custom_type_script = "uid://cp7wypu04thhl"
+
+[sub_resource type="Resource" id="Resource_n64rs"]
+script = ExtResource("22_17mqb")
+Duration = 0.0
+metadata/_custom_type_script = "uid://k3ifrir6l6ca"
+
+[sub_resource type="Resource" id="Resource_i8dsc"]
+script = ExtResource("24_17mqb")
+Duration = 0.0
+metadata/_custom_type_script = "uid://dn4uqpolilgmg"
+
+[sub_resource type="Resource" id="Resource_k0u2i"]
+script = ExtResource("25_nwvxw")
+Duration = 0.0
+metadata/_custom_type_script = "uid://c7edba5rcci31"
+
+[sub_resource type="Resource" id="Resource_aqgqm"]
+script = ExtResource("28_p0nbg")
+Duration = 0.0
+metadata/_custom_type_script = "uid://dba1hudn3gp72"
+
+[node name="Level" type="Node2D" node_paths=PackedStringArray("CurrentBall", "CurrentPaddle", "EffectPlayer", "PowerUpManager")]
 script = ExtResource("1_5rrr5")
 CurrentBall = NodePath("TheBall")
 CurrentPaddle = NodePath("Paddle")
 EffectPlayer = NodePath("EffectPlayer")
+PowerUpManager = NodePath("PowerUpManager")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(320, 180)
@@ -160,5 +242,11 @@ offset_right = -27.0
 [node name="EffectPlayer" type="Node2D" parent="."]
 script = ExtResource("10_133si")
 EffectMap = SubResource("Resource_bktio")
+
+[node name="PowerUpManager" type="Node2D" parent="."]
+position = Vector2(-1, 0)
+script = ExtResource("15_q24aw")
+_powerUpSceneMaps = Array[Object]([SubResource("Resource_32npc"), SubResource("Resource_yyp3s"), SubResource("Resource_g4pvc"), SubResource("Resource_17mqb"), SubResource("Resource_p0nbg"), SubResource("Resource_m8wsw")])
+_powerUpEffectTemplates = Array[Resource]([SubResource("Resource_nwvxw"), SubResource("Resource_4bpm7"), SubResource("Resource_n64rs"), SubResource("Resource_i8dsc"), SubResource("Resource_k0u2i"), SubResource("Resource_aqgqm")])
 
 [editable path="InGameUI"]

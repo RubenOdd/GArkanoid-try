@@ -10,11 +10,12 @@ namespace GA.GArkanoid;
 
 public partial class Ball : CharacterBody2D
 {
-    public float Speed { get; private set; } = 0.0f;
+    public float Speed { get; set; } = 0.0f;
     public Vector2 Direction { get; private set; } = Vector2.Zero;
     private CharacterBody2D _paddle = null;
     // HACK Very bad, bad, bad hard coded magic numbers
     private Vector2 _offset = new(0, -10);
+    public bool IsGhost {get; set;} = false;
 
     public bool IsLaunched
     {
@@ -42,25 +43,34 @@ public partial class Ball : CharacterBody2D
         }
 
         var collisionInfo = MoveAndCollide(Velocity * (float)delta);
-
-        // The bouncing mechanic
-        if (Bounce(collisionInfo))
+        bool shouldBounce = collisionInfo != null;
+        if (shouldBounce)
         {
-            GodotObject collidedObject = collisionInfo.GetCollider();
-            if (collidedObject is Block block)
+            // The bouncing mechanic
+            if (Bounce(collisionInfo))
             {
-                LevelManager.Active.EffectPlayer.PlayEffect(EffectType.Hit, GlobalPosition);
-                block.Hit();
+                GodotObject collidedObject = collisionInfo.GetCollider();
+                if (collidedObject is Block block)
+                {
+                    shouldBounce = !IsGhost;
+                    LevelManager.Active.EffectPlayer.PlayEffect(EffectType.Hit, GlobalPosition);
+                    block.Hit();
+                }
+                else if (collidedObject is Wall wall && wall.IsHazard)
+                {
+                    LevelManager.Active.EffectPlayer.PlayEffect(EffectType.Death, GlobalPosition);
+                    GameManager.Instance.DecreaseLives();
+                }
+                else
+                {
+                    LevelManager.Active.EffectPlayer.PlayEffect(EffectType.Bounce, GlobalPosition);
+                }
             }
-            else if (collidedObject is Wall wall && wall.IsHazard)
-            {
-                LevelManager.Active.EffectPlayer.PlayEffect(EffectType.Death, GlobalPosition);
-                GameManager.Instance.DecreaseLives();
-            }
-            else
-            {
-                LevelManager.Active.EffectPlayer.PlayEffect(EffectType.Bounce, GlobalPosition);
-            }
+        }
+
+        if (!shouldBounce)
+        {
+            Bounce(collisionInfo);
         }
     }
 

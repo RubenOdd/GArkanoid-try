@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://pt7hxljhf3qh"]
+
+[ext_resource type="Script" uid="uid://bql1q8bpuq3lb" path="res://Scripts/PowerUp/PowerUp.cs" id="1_y534y"]
+[ext_resource type="Texture2D" uid="uid://gh77ngftus3h" path="res://Sprites/32/PowerUps/PowerUp-LoseLife.png" id="2_4nfu7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3hf71"]
+size = Vector2(31, 32)
+
+[node name="LoseLifePowerUp" type="Area2D"]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("1_y534y")
+Type = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_3hf71")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_4nfu7")

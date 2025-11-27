@@ -10,14 +10,12 @@ namespace GA.GArkanoid;
 [Tool]
 public partial class Block : StaticBody2D
 {
-    [Signal]
-	public delegate void BlockDestroyedEventHandler(Block block);
+    [Signal] public delegate void BlockDestroyedEventHandler(Block block);
 
-    [Export]
-    private Color _blockColor = Colors.White;
+    [Export] private Color _blockColor = Colors.White;
 
-    [Export]
-    private int _score = 1;
+    [Export] private int _score = 1;
+    [Export] private PowerUpType _guaranteedPowerUp = PowerUpType.None;
 
     private bool _isEnabled = true;
 
@@ -32,6 +30,8 @@ public partial class Block : StaticBody2D
         }
     }
 
+    public PowerUpType GuaranteedPowerUp => _guaranteedPowerUp;
+
     [Export] public string GUID { get; private set; } = null;
 
     private Sprite2D _sprite = null;
@@ -45,7 +45,7 @@ public partial class Block : StaticBody2D
         {
             if (string.IsNullOrWhiteSpace(GUID))
             {
-                GUID = Guid.NewGuid().ToString();
+                SetGUID(Guid.NewGuid().ToString());
                 GD.Print($"Created a new GUID for the object {this.Name}");
             }
         }
@@ -70,5 +70,11 @@ public partial class Block : StaticBody2D
         GameManager.Instance.AddScore(_score);
 
         EmitSignal(SignalName.BlockDestroyed, this);
+    }
+
+    public void SetGUID(string guid)
+    {
+        GUID = guid;
+        NotifyPropertyListChanged();
     }
 }
